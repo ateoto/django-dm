@@ -11,12 +11,16 @@ class Party(models.Model):
     characters = models.ManyToManyField(Character)
 
     def __unicode__(self):
-        return "%s (est. %s)" % self.name, self.formed_on
+        return "%s (est. %s)" % (self.name, self.formed_on)
 
 
 class Campaign(models.Model):
+    title = models.CharField(max_length=100)
     dm = models.ForeignKey(User)
     party = models.ForeignKey(Party)
+
+    def __unicode__(self):
+        return "%s: %s" % (self.party.name, self.title)
 
 
 class Session(models.Model):
@@ -28,3 +32,4 @@ class Session(models.Model):
 class HistoryLine(models.Model):
     session = models.ForeignKey(Session)
     text = models.TextField()
+    logged_at = models.DateTimeField(auto_now_add=True)
