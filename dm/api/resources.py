@@ -2,8 +2,12 @@ from tastypie.resources import ModelResource
 from tastypie import fields
 from dm.models import (Party, Campaign, Session, HistoryLine)
 
+from character_builder.api.resources import CharacterResource
+
 
 class PartyResource(ModelResource):
+    characters = fields.ToManyField(CharacterResource, 'characters')
+
     class Meta:
         queryset = Party.objects.all()
         resource_name = 'party'
