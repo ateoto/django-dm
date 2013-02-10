@@ -79,9 +79,9 @@ function set_hp(resource_uri, hp) {
 		url: resource_uri,
 		type: 'PATCH',
 		contentType: 'application/json',
-			data: JSON.stringify({ "hit_points": hp }),
-			dataType: 'json',
-			processData: false,
+		data: JSON.stringify({ "hit_points": hp }),
+		dataType: 'json',
+		processData: false,
         beforeSend: function(jqXHR, settings) {
         	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
         },
