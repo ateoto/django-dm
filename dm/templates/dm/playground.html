@@ -93,6 +93,9 @@ function set_hp(resource_uri, hp) {
         success: function(data, textStatus, jqXHR) {
             update_character(resource_uri);
         },
+        error: function(jqXHR, status, error) {
+            console.log(jqXHR);
+        }
     });
 }
 
