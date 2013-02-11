@@ -1,5 +1,8 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
+from tastypie.authentication import Authentication
+from tastypie.authorization import Authorization
+
 from dm.models import (Party, Campaign, Session, HistoryLine)
 
 from character_builder.api.resources import CharacterResource
@@ -29,3 +32,5 @@ class HistoryLineResource(ModelResource):
     class Meta:
         queryset = HistoryLine.objects.all()
         resource_name = 'historyline'
+        authentication = Authentication()
+        authorization = Authorization()
