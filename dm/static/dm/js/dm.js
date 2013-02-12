@@ -143,7 +143,7 @@ $(function() {
 			var cid = $('#hp-modal-save').attr('character-id');
 			var character = my_party.get_character_by_id(cid);
 			character.hit_points = new_value;
-			$.when(character.set_character()).then(character.update_ui());
+			character.set_character();
 		} else {
 			var pid = $('#hp-modal-save').attr('party-id');
 			$.get('/dm/api/v1/party/' + pid + '/', '',
