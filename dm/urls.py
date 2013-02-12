@@ -4,6 +4,6 @@ from dm.api import v1
 
 urlpatterns = patterns('',
     #url(r'^$', TemplateView.as_view(template_name = 'dm/home.html')),
-    url(r'^playground/(?P<party_id>\d+)/$', 'dm.views.playground', name='dm-playground'),
+    url(r'^party/(?P<party_id>\d+)/$', 'dm.views.party', name='dm-party'),
     url(r'^api/', include(v1.urls)),
 )

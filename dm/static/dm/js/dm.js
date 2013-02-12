@@ -79,18 +79,7 @@ $(function() {
 		console.log('Update ui for ' + this.id);
 		var hp_percentage = ((this.hit_points / this.max_hit_points) * 100);
 		$('#hp-text-' + this.id).text(this.hit_points);
-
-		if (hp_percentage <= 30) {
-			$('#hp-bar-parent-' + this.id).removeClass("progress-success progress-warning").addClass("progress-danger");
-		}
-		else if (hp_percentage > 30 && hp_percentage <= 50) {
-			$('#hp-bar-parent-' + this.id).removeClass("progress-success progress-danger").addClass("progress-warning");
-		}
-		else {
-			$('#hp-bar-parent-' + this.id).removeClass("progress-warning progress-danger").addClass("progress-success");
-		}
-		
-		$('#hp-bar-' + this.id).css("width", hp_percentage + "%");
+		$('#max-hp-text-' + this.id).text(this.max_hit_points);
 	}
 
 	my_party = new Party('/dm/api/v1/party/' + $('#party').attr('party-id') + '/');

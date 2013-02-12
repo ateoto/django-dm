@@ -6,28 +6,30 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            <button id="hp-btn-party" class="btn" party-id="{{ party.id }}">Modify HP</button>
-            <button class="btn">Modify XP</button>
-            <button class="btn">KILL ALL HUMANS</button>
-        </div>
-    </div>
     <ul id="party" class="thumbnails" party-id="{{ party.id }}">
     {% for c in party.characters.all %}
         <li id="character-{{ c.id }}" class="character-block span4" character-id="{{ c.id }}">
             <div class="thumbnail">
                 <h3>{{ c.name }}<small class="character-header-info">Level {{ c.current_level.number }} {{ c.race.name }} {{ c.class_type.name }}</small></h3>
                 HP: <span id="hp-text-{{ c.id }}">{{ c.hit_points }}</span>
-                <div id="hp-bar-parent-{{ c.id }}" class="progress progress-success">
-                    <div id="hp-bar-{{ c.id }}" class="bar" style="width: 100%;"></div>
-                </div>
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <button id="hp-btn-{{ c.id }}" class="hp-btn btn" character-id="{{ c.id}}">HP</button>
-                        <button class="xp-btn btn">XP</button>
-                        <button class="curr-btn btn">Currency</button>
-                    <div>
+                /
+                <span id="max-hp-text-{{ c.id }}">{{ c.max_hit_points }}</span>
+                <br>
+                <span class="defenses">
+                    {% with defenses=c.get_defenses %}
+                    AC: <span id="ac-text-{{ c.id }}">{{ defenses.ac.total }}</span>, 
+                    Fort: <span id="fort-text-{{ c.id }}">{{ defenses.fort.total }}</span>, 
+                    Reflex: <span id="ref-text-{{ c.id }}">{{ defenses.ref.total }}</span>, 
+                    Will: <span id="will-text-{{ c.id }}">{{ defenses.will.total }}</span>
+                    {% endwith %}
+                </span>
+                <br>
+                <div class="row">
+                {% for ability in c.abilities.all %}
+                    <span class="span1">
+                        {{ ability.ability.abbreviation }}: {{ ability.check }}
+                    </span>
+                {% endfor %}
                 </div>
             </div>
         </li>

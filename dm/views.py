@@ -11,7 +11,7 @@ from dm.models import Party
 
 
 @login_required
-def playground(request, party_id):
+def party(request, party_id):
     response_dict = {}
 
     party = get_object_or_404(Party, id=party_id)
@@ -20,6 +20,6 @@ def playground(request, party_id):
 
     response_dict['party'] = party
 
-    return render_to_response('dm/playground.html',
+    return render_to_response('dm/party.html',
             response_dict,
             context_instance=RequestContext(request))
