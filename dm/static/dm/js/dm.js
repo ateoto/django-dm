@@ -156,20 +156,3 @@ $(function() {
 		$('#hp-modal').modal('hide');
 	});
 });
-
-function set_hp(resource_uri, hp) {
-	$.ajax({
-		url: resource_uri,
-		type: 'PATCH',
-		contentType: 'application/json',
-		data: JSON.stringify({ "hit_points": hp }),
-		dataType: 'json',
-		processData: false,
-        beforeSend: function(jqXHR, settings) {
-        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
-        },
-        success: function(data, textStatus, jqXHR) {
-        	update_character(resource_uri);
-        },
-	});
-}
