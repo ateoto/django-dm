@@ -33,3 +33,10 @@ class HistoryLine(models.Model):
     session = models.ForeignKey(Session)
     text = models.TextField()
     logged_at = models.DateTimeField(auto_now_add=True)
+
+
+class Encounter(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.name

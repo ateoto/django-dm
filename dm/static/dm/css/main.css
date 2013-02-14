@@ -2,6 +2,18 @@ body {
 	padding-top: 30px;
 }
 
+#sidenav {
+	float: left;
+	position: relative;
+	width: 100px;
+	min-height: 500px;
+}
+#content {
+}
+
 .character-header-info {
 	padding-left: 10px;
+}
+#pc-detail-toolbar {
+	text-align: center;
 }

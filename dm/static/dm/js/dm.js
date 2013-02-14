@@ -50,6 +50,11 @@ $(function() {
 				this_character.hit_points = data.hit_points;
 				this_character.max_hit_points = data.max_hit_points;
 				this_character.id = data.id;
+				this_character.level = data.level;
+				this_character.race = data.race.name;
+				this_character.class_type = data.class_type.name;
+				this_character.defenses = data.defenses;
+				this_character.abilities = data.abilities;
 				console.log('Got character ' + this_character.id);
 				this_character.update_ui();
 		}, "json");
@@ -71,77 +76,70 @@ $(function() {
 	        	this_character.update_ui();
 	        },
 		});
-
-
 	}
 
 	Character.prototype.update_ui = function() {
 		console.log('Update ui for ' + this.id);
 		var hp_percentage = ((this.hit_points / this.max_hit_points) * 100);
+		$('#pc-init-' + this.id).text(this.abilities.dex.modifier_half_level);
 		$('#hp-text-' + this.id).text(this.hit_points);
 		$('#max-hp-text-' + this.id).text(this.max_hit_points);
 	}
 
-	my_party = new Party('/dm/api/v1/party/' + $('#party').attr('party-id') + '/');
+	$('#pc-detail').hide();
+
+	my_party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
 
 	$.when(my_party.get_party()).then(my_party.update_ui());
 
-	$('#hp-modal').modal({
-		show: false,
-	});
-
-	$('#xp-modal').modal({
-		show: false,
-	});
-
 	//update_party($('#party').attr('party-id'));
 
-	$('.hp-btn').click(function(){
-		var cid = $(this).attr('character-id');
-		var character = my_party.get_character_by_id(cid);
-		$('#hp-modal-save').removeAttr('party-id');
-		$('#hp-modal-save').attr('character-id', cid);
-		$('#hp-modal-label').text(character.name);
-		$('#hp-input').val(character.hit_points);
-		$('#hp-modal').modal('show');
-	});
 
-	$('#hp-btn-party').click(function() {
-		var pid = $('#hp-btn-party').attr('party-id');
-		$('#hp-modal-save').removeAttr('character-id');
-		$('#hp-modal-save').attr('party-id', pid);
+	$('.pc-character-overview').click(function() {
+		$("#pc-detail").hide();
+		$('#pc-detail-stats').hide();
+		var pcid = $(this).attr('pc-id');
+		var character = my_party.get_character_by_id(pcid);
+		$('#pc-detail').attr('pc-id', pcid);
+		$('#pc-detail-name').text(character.name);
+        $('#pc-detail-level-text').text(character.level);
+        $('#pc-detail-flavor').text(character.race + ' ' + character.class_type);
+		$('#pc-detail-ac .pc-detail-defense-value').text(character.defenses.ac.total);
+		$('#pc-detail-fort .pc-detail-defense-value').text(character.defenses.fort.total);
+		$('#pc-detail-ref .pc-detail-defense-value').text(character.defenses.ref.total);
+		$('#pc-detail-will .pc-detail-defense-value').text(character.defenses.will.total);
+		$('#pc-detail-str .pc-detail-ability-check').text(character.abilities.str.check);
+		$('#pc-detail-dex .pc-detail-ability-check').text(character.abilities.dex.check);
+		$('#pc-detail-wis .pc-detail-ability-check').text(character.abilities.wis.check);
+		$('#pc-detail-con .pc-detail-ability-check').text(character.abilities.con.check);
+		$('#pc-detail-int .pc-detail-ability-check').text(character.abilities.int.check);
+		$('#pc-detail-cha .pc-detail-ability-check').text(character.abilities.cha.check);
 
-		$.get('/dm/api/v1/party/' + pid + '/','',
-			function(data) {
-				$('#hp-modal-label').text(data.name);
-				$('#hp-input').val('');
-				$('#hp-modal').modal('show');
-			}, "json");
-	});
-
-	$('#hp-max-btn').click(function() {
-		var cid = $('#hp-modal-save').attr('character-id');
-		var character = my_party.get_character_by_id(cid);
-		$('#hp-input').val(character.max_hit_points);
+        $('#pc-detail-stats').show();
+        $('#pc-detail').show();
 	});
 
 
-	$('#hp-modal-save').click(function() {
-		var new_value = $('#hp-input').val();
-		if ($('#hp-modal-save').attr('party-id') == undefined) {
-			var cid = $('#hp-modal-save').attr('character-id');
-			var character = my_party.get_character_by_id(cid);
-			character.hit_points = new_value;
-			character.set_character();
-		} else {
-			var pid = $('#hp-modal-save').attr('party-id');
-			$.get('/dm/api/v1/party/' + pid + '/', '',
-				function(data) {
-					_.each(data.characters, function(element) {
-						set_hp(element, new_value);
-					});
-			}, "json");
-		}
-		$('#hp-modal').modal('hide');
+	$('#pc-detail-toolbar .btn').tooltip({ placement: 'bottom'});
+
+
+	$('#pc-initiative-btn').click(function() {
+		var pcid = $('#pc-detail').attr('pc-id');
+		$('#pc-initiative-form').attr('for-pc', pcid);
+		$('#initiative-modal').modal('show');
+		$('#pc-initiative-input').val($('#pc-init-' + pcid).text());
+		$('#pc-initiative-input').focus();
+	});
+
+	$('#pc-stats-btn').click(function() {
+		//Hide all others
+		$('#pc-detail-stats').show();
+	});
+
+	$('#pc-initiative-form').submit(function() {
+		var pcid = $('#pc-initiative-form').attr('for-pc');
+		$('#pc-init-' + pcid).text($('#pc-initiative-input').val());
+		$('#initiative-modal').modal('hide');
+		return false;
 	});
 });
