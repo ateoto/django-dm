@@ -87,6 +87,8 @@ $(function() {
 	}
 
 	$('#pc-detail').hide();
+	$('#pc-detail-stats').hide();
+	$('#pc-detail-dm').hide();
 
 	my_party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
 
@@ -114,9 +116,9 @@ $(function() {
 		$('#pc-detail-con .pc-detail-ability-check').text(character.abilities.con.check);
 		$('#pc-detail-int .pc-detail-ability-check').text(character.abilities.int.check);
 		$('#pc-detail-cha .pc-detail-ability-check').text(character.abilities.cha.check);
-
-        $('#pc-detail-stats').show();
+        
         $('#pc-detail').show();
+        $('#pc-detail-toolbar .active').click();
 	});
 
 
@@ -132,14 +134,69 @@ $(function() {
 	});
 
 	$('#pc-stats-btn').click(function() {
-		//Hide all others
+		$('#pc-detail-dm').hide();
 		$('#pc-detail-stats').show();
 	});
-
-	$('#pc-initiative-form').submit(function() {
-		var pcid = $('#pc-initiative-form').attr('for-pc');
-		$('#pc-init-' + pcid).text($('#pc-initiative-input').val());
-		$('#initiative-modal').modal('hide');
-		return false;
+	
+	$('#pc-dm-btn').click(function() {
+		$('#pc-detail-stats').hide();
+		$('#pc-detail-dm').show();
+		$('#pc-damage').focus();
 	});
+
+
+
+	$('#pc-damage-btn').click(function() {
+		var pcid = $('#pc-detail').attr('pc-id');
+		var damage = $('#pc-damage').val();
+		if ($.isNumeric(damage)) {
+			damage = parseInt(damage, 10);
+			var character = my_party.get_character_by_id(pcid);
+			character.hit_points -= damage;
+			character.set_character();
+			//Stuff to check bloodied/death
+		}
+		$('#pc-damage').val('');
+	});
+
+	$('#pc-heal-btn').click(function() {
+		var pcid = $('#pc-detail').attr('pc-id');
+		var heal = $('#pc-heal').val();
+		if ($.isNumeric(heal)) {
+			heal = parseInt(heal, 10);
+			var character = my_party.get_character_by_id(pcid);
+			character.hit_points += heal;
+			character.set_character();
+			//stuff to limit to certain amount
+		}
+		$('#pc-heal').val('');
+	});
+
+	$('#pc-init-btn').click(function() {
+		var pcid = $('#pc-detail').attr('pc-id');
+		var initiative = $('#pc-init').val();
+		if ($.isNumeric(initiative)) {
+			initiative = parseInt(initiative, 10);
+			$('#pc-init-' + pcid).text(initiative);
+		}
+		$('#pc-init').val('');
+	});
+
+	$("#pc-damage").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-damage-btn').click();
+		}
+	}); 
+	
+	$("#pc-heal").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-heal-btn').click();
+		}
+	}); 
+
+	$("#pc-init").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-init-btn').click();
+		}
+	}); 
 });

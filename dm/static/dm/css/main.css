@@ -17,3 +17,7 @@ body {
 #pc-detail-toolbar {
 	text-align: center;
 }
+
+.pc-detail-body {
+	margin-top: 10px;
+}

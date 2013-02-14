@@ -41,15 +41,14 @@
                     <span id="pc-detail-name"></span>
                     <small>Level <span id="pc-detail-level-text"></span> <span id="pc-detail-flavor"></span></small>
                 </h3>
-                <div id="pc-detail-toolbar" class="btn-group">
-                    <button id="pc-initiative-btn" class="btn" title="Initiative">#</button>
-                    <button id="pc-stats-btn" class="btn" title="Stats">Stats</button>
+                <div id="pc-detail-toolbar" class="btn-group" data-toggle="buttons-radio">
+                    <button id="pc-stats-btn" class="btn active" title="Stats">Stats</button>
                     <button id="pc-powers-btn" class="btn" title="Powers">Powers</button>
                     <button id="pc-feats-btn" class="btn" title="Feats">Feats</button>
                     <button id="pc-equipment-btn" class="btn" title="Equipment">Equipment</button>
                     <button id="pc-dm-btn" class="btn" title="Dungeon Master">DM</button>
                 </div>
-                <div id="pc-detail-stats">
+                <div id="pc-detail-stats" class="pc-detail-body">
                     <div id="pc-detail-stats-defenses">
                         <div class="row">
                             <div id="pc-detail-ac" class="span6">
@@ -101,6 +100,20 @@
                                 <span class="pc-detail-ability-check"></span> 
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div id="pc-detail-dm" class="pc-detail-body">
+                    <div class="input-append">
+                      <input class="span2" id="pc-damage" type="text" placeholder="Damage">
+                      <button id="pc-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                    </div>
+                    <div class="input-append">
+                      <input class="span2" id="pc-heal" type="text" placeholder="Heal">
+                      <button id="pc-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                    </div>
+                    <div class="input-append">
+                      <input class="span2" id="pc-init" type="text" placeholder="Initiative">
+                      <button class="btn" id="pc-init-btn" type="button" tabindex="-1">Set</button>
                     </div>
                 </div>
             </div>
