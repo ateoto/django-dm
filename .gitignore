@@ -1,4 +1,5 @@
 *.log
 *.pot
 *.pyc
+dm/migrations/
 local_settings.py
