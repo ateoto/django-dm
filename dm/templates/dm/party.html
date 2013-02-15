@@ -33,6 +33,28 @@
             </table>
             <h3>NPCs</h3>
             <table id="npc-overview" class="table table-striped table-bordered table-condensed table-hover" encounter-id="{{ encounter.id }}">
+                <thead>
+                    <tr>
+                        <th>Initiative</th>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Health</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for npc in encounter.npcs.all.select_subclasses %}
+                    <tr id="npc-{{ npc.id }}" class="npc-overview" npc-id="{{ npc.id }}">
+                        <td id="npc-init-{{ npc.id }}"> {{ npc.get_abilities.dex.modifier_half_level }}</td>
+                        <td id="npc-symbol-{{ npc.id }}"></td>
+                        <td id="npc-name-{{ npc.id }}">{{ npc.npc_type.name }}</td>
+                        <td id="npc-health-{{ npc.id }}">
+                            <span id="npc-hp-text-{{ npc.id }}">{{ npc.hit_points }}</span>
+                            /
+                            <span id="npc-max-hp-text-{{ npc.id }}">{{ npc.npc_type.max_hit_points }}</span>
+                        </td>
+                   </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
         <div id="detail" class="span6">

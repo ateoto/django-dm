@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from dm.models import Party
+from dm.models import Party, Encounter
 
 
 @login_required
@@ -19,6 +19,7 @@ def party(request, party_id):
         raise PermissionDenied
 
     response_dict['party'] = party
+    response_dict['encounter'] = Encounter.objects.get(id=1)
 
     return render_to_response('dm/party.html',
             response_dict,

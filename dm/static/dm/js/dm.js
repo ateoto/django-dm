@@ -1,5 +1,38 @@
 $(function() {
 
+	function Encounter(resource_uri) {
+		this.resource_uri = resource_uri;
+		this.npcs = [];
+	}
+
+	Encounter.prototype.get_encounter = function() {
+		console.log('Updating Encounter Data.');
+		var this_encounter = this;
+		var jqxhr = $.get(this_encounter.resource_uri, '',
+			function(data) {
+				_.each(data.npcs, function(element) {
+					var npc = new NPC(element);
+					this_encounter.npcs.push(npc);
+				});
+				_.each(this_encounter.npcs, function(element) {
+					element.get_npc();
+				});
+		}, "json");
+
+		return jqxhr;
+	}
+
+	Encounter.prototype.update_ui = function() {
+		console.log('Update Encounter UI.');
+		var this_encounter = this;
+		console.log(this_encounter.npcs);
+		_.each(this_encounter.npcs, function(element) {
+			console.log('Rabble');
+			element.update_ui();
+		});
+	}
+
+
 	function Party(resource_uri) {
 		this.resource_uri = resource_uri;
 		this.characters = [];
@@ -36,6 +69,29 @@ $(function() {
 			}
 		});
 		return character;
+	}
+
+	function NPC(resource_uri) {
+		this.resource_uri = resource_uri;
+	}
+
+	NPC.prototype.get_npc = function() {
+		var this_npc = this;
+		$.get(this_npc.resource_uri, '',
+			function(data) {
+				this_npc.name = data.name;
+				this_npc.hit_points = data.hit_points;
+				this_npc.max_hit_points = data.max_hit_points;
+				this_npc.role = data.role;
+				this_npc.abilities = data.abilities;
+				this_npc.defenses = data.defenses;
+				this_npc.level = data.level;
+				this_npc.update_ui();
+		}, "json");
+	}
+
+	NPC.prototype.update_ui = function() {
+		console.log('Update UI for NPC.');
 	}
 
 	function Character(resource_uri) {
@@ -91,11 +147,10 @@ $(function() {
 	$('#pc-detail-dm').hide();
 
 	my_party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
+	encounter = new Encounter('/dm/api/v1/encounter/1/'); //For Now
 
-	$.when(my_party.get_party()).then(my_party.update_ui());
-
-	//update_party($('#party').attr('party-id'));
-
+	my_party.get_party();
+	encounter.get_encounter();
 
 	$('.pc-character-overview').click(function() {
 		$("#pc-detail").hide();
@@ -121,9 +176,7 @@ $(function() {
         $('#pc-detail-toolbar .active').click();
 	});
 
-
 	$('#pc-detail-toolbar .btn').tooltip({ placement: 'bottom'});
-
 
 	$('#pc-initiative-btn').click(function() {
 		var pcid = $('#pc-detail').attr('pc-id');
@@ -143,8 +196,6 @@ $(function() {
 		$('#pc-detail-dm').show();
 		$('#pc-damage').focus();
 	});
-
-
 
 	$('#pc-damage-btn').click(function() {
 		var pcid = $('#pc-detail').attr('pc-id');
