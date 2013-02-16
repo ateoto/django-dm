@@ -1,178 +1,4 @@
 $(function() {
-
-	function Encounter(resource_uri) {
-		this.resource_uri = resource_uri;
-		this.npcs = [];
-	}
-
-	Encounter.prototype.get_encounter = function() {
-		console.log('Updating Encounter Data.');
-		var this_encounter = this;
-		var jqxhr = $.get(this_encounter.resource_uri, '',
-			function(data) {
-				_.each(data.npcs, function(element) {
-					var npc = new NPC(element);
-					this_encounter.npcs.push(npc);
-				});
-				_.each(this_encounter.npcs, function(element) {
-					element.get_npc();
-				});
-		}, "json");
-
-		return jqxhr;
-	}
-
-	Encounter.prototype.update_ui = function() {
-		var this_encounter = this;
-		_.each(this_encounter.npcs, function(element) {
-			element.update_ui();
-		});
-	}
-
-	Encounter.prototype.get_npc_by_id = function(npc_id) {
-		var npc_id = npc_id;
-		var npc;
-		_.each(this.npcs, function(element) {
-			if (element.id == npc_id) {
-				npc = element;
-			}
-		});
-		return npc;
-	}
-
-	function NPC(resource_uri) {
-		this.resource_uri = resource_uri;
-	}
-
-	NPC.prototype.get_npc = function() {
-		var this_npc = this;
-		$.get(this_npc.resource_uri, '',
-			function(data) {
-				this_npc.id = data.id;
-				this_npc.name = data.name;
-				this_npc.hit_points = data.hit_points;
-				this_npc.max_hit_points = data.max_hit_points;
-				this_npc.role = data.role;
-				this_npc.abilities = data.abilities;
-				this_npc.defenses = data.defenses;
-				this_npc.level = data.level;
-				this_npc.update_ui();
-		}, "json");
-	}
-
-	NPC.prototype.set_npc = function() {
-		var this_npc = this;
-		$.ajax({
-			url: this_npc.resource_uri,
-			type: 'PATCH',
-			contentType: 'application/json',
-			data: JSON.stringify({ "hit_points": this_npc.hit_points }),
-			dataType: 'json',
-			processData: false,
-	        beforeSend: function(jqXHR, settings) {
-	        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
-	        },
-	        success: function(data, textStatus, jqXHR) {
-	        	this_npc.update_ui();
-	        },
-		});
-	}
-
-	NPC.prototype.update_ui = function() {
-		console.log('Update UI for NPC.');
-		if (this.hit_points <= 0) {
-			$('#npc-' + this.id).addClass('dead');
-		} else {
-			$('#npc-' + this.id).removeClass('dead');
-		}
-		$('#npc-hp-text-' + this.id).text(this.hit_points);
-		$('#npc-max-hp-text-' + this.id).text(this.max_hit_points);
-	}
-
-	function Party(resource_uri) {
-		this.resource_uri = resource_uri;
-		this.characters = [];
-	}
-
-	Party.prototype.get_party = function() {
-		console.log('Updating Party Data.');
-		var this_party = this;
-		$.get(this_party.resource_uri, '',
-			function(data) {
-				_.each(data.characters, function(element) {
-					var c = new Character(element);
-					this_party.characters.push(c);
-				});
-				_.each(this_party.characters, function(element){
-					element.get_character();
-				});
-		}, "json");	
-	}
-
-	Party.prototype.update_ui = function() {
-		_.each(this.characters, function(element) {
-			element.update_ui();
-		});
-	}
-
-	Party.prototype.get_character_by_id = function(character_id) {
-		var character_id = character_id;
-		var character;
-		_.each(this.characters, function(element) {
-			if (element.id == character_id) {
-				character = element;
-			}
-		});
-		return character;
-	}
-
-	function Character(resource_uri) {
-		this.resource_uri = resource_uri;
-	}
-
-	Character.prototype.get_character = function() {
-		var this_character = this;
-		$.get(this_character.resource_uri, '',
-			function(data) {
-				this_character.name = data.name;
-				this_character.hit_points = data.hit_points;
-				this_character.max_hit_points = data.max_hit_points;
-				this_character.id = data.id;
-				this_character.level = data.level;
-				this_character.race = data.race.name;
-				this_character.class_type = data.class_type.name;
-				this_character.defenses = data.defenses;
-				this_character.abilities = data.abilities;
-				this_character.update_ui();
-		}, "json");
-	}
-
-	Character.prototype.set_character = function() {
-		var this_character = this;
-		$.ajax({
-			url: this_character.resource_uri,
-			type: 'PATCH',
-			contentType: 'application/json',
-			data: JSON.stringify({ "hit_points": this_character.hit_points }),
-			dataType: 'json',
-			processData: false,
-	        beforeSend: function(jqXHR, settings) {
-	        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
-	        },
-	        success: function(data, textStatus, jqXHR) {
-	        	this_character.update_ui();
-	        },
-		});
-	}
-
-	Character.prototype.update_ui = function() {
-		console.log('Update ui for ' + this.id);
-		var hp_percentage = ((this.hit_points / this.max_hit_points) * 100);
-		$('#pc-init-' + this.id).text(this.abilities.dex.modifier_half_level);
-		$('#hp-text-' + this.id).text(this.hit_points);
-		$('#max-hp-text-' + this.id).text(this.max_hit_points);
-	}
-
 	$('#pc-detail').hide();
 	$('#pc-detail-stats').hide();
 	$('#pc-detail-dm').hide();
@@ -181,17 +7,17 @@ $(function() {
 	$('#npc-detail-stats').hide();
 	$('#npc-detail-dm').hide();
 
-	my_party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
+	party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
 	encounter = new Encounter('/dm/api/v1/encounter/1/'); //For Now
 
-	my_party.get_party();
+	party.get_party();
 	encounter.get_encounter();
 
 	$('.pc-character-overview').click(function() {
 		$("#pc-detail").hide();
 		$('#pc-detail-stats').hide();
 		var pcid = $(this).attr('pc-id');
-		var character = my_party.get_character_by_id(pcid);
+		var character = party.get_character_by_id(pcid);
 		$('#pc-detail').attr('pc-id', pcid);
 		$('#pc-detail-name').text(character.name);
         $('#pc-detail-level-text').text(character.level);
@@ -237,7 +63,7 @@ $(function() {
 		var damage = $('#pc-damage').val();
 		if ($.isNumeric(damage)) {
 			damage = parseInt(damage, 10);
-			var character = my_party.get_character_by_id(pcid);
+			var character = party.get_character_by_id(pcid);
 			character.hit_points -= damage;
 			character.set_character();
 			//Stuff to check bloodied/death
@@ -250,7 +76,7 @@ $(function() {
 		var heal = $('#pc-heal').val();
 		if ($.isNumeric(heal)) {
 			heal = parseInt(heal, 10);
-			var character = my_party.get_character_by_id(pcid);
+			var character = party.get_character_by_id(pcid);
 			character.hit_points += heal;
 			character.set_character();
 			//stuff to limit to certain amount
