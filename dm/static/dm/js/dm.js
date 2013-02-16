@@ -206,11 +206,17 @@ $(function() {
 		$('#npc-symbol').val('');
 	});
 
+	$('#npc-remove-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		$('#npc-detail').hide();
+		$('#npc-' + npcid).remove();
+	});
+
 	$("#npc-damage").keyup(function(ev) {
  		if (ev.which === 13) {
 			$('#npc-damage-btn').click();
 		}
-	}); 
+	});
 	
 	$("#npc-heal").keyup(function(ev) {
  		if (ev.which === 13) {

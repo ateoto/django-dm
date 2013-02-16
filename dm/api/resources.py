@@ -74,6 +74,7 @@ class NPCResource(ModelResource):
 
 class EncounterResource(ModelResource):
     npcs = fields.ToManyField(NPCResource, 'npcs')
+    party = fields.ForeignKey(PartyResource, 'party')
 
     class Meta:
         queryset = Encounter.objects.all()

@@ -50,7 +50,7 @@ class HistoryLine(models.Model):
         app_label = 'dm'
 
 
-class Encounter(models.Model):
+class EncounterTemplate(models.Model):
     name = models.CharField(max_length=100)
     npcs = models.ManyToManyField(NPC)
 
@@ -59,6 +59,24 @@ class Encounter(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Encounter(EncounterTemplate):
+    party = models.ForeignKey(Party)
+
+    class Meta:
+        app_label = 'dm'
+
+    def __unicode__(self):
+        return "%s instance for %s" % (self.name, self.party.name)
+
+    def from_template(self, encounter):
+        self = encounter
+        self.pk = None
+        self.id = None
+        self.save()
+        self.npcs = encounter.npcs.all()
+        self.save()
 
     def initiative_order(self):
         init_table = []

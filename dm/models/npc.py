@@ -93,6 +93,7 @@ class NPCTypeDefense(models.Model):
 
 class NPC(models.Model):
     objects = InheritanceManager()
+    is_alive = models.BooleanField(default=True)
 
     class Meta:
         app_label = 'dm'
