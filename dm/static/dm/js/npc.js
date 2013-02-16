@@ -6,6 +6,7 @@ NPC.prototype.get_npc = function() {
 	var this_npc = this;
 	$.get(this_npc.resource_uri, '',
 		function(data) {
+			this_npc.id = data.id;
 			this_npc.name = data.name;
 			this_npc.hit_points = data.hit_points;
 			this_npc.max_hit_points = data.max_hit_points;
@@ -15,6 +16,24 @@ NPC.prototype.get_npc = function() {
 			this_npc.level = data.level;
 			this_npc.update_ui();
 	}, "json");
+}
+
+NPC.prototype.set_npc = function() {
+	var this_npc = this;
+	$.ajax({
+		url: this_npc.resource_uri,
+		type: 'PATCH',
+		contentType: 'application/json',
+		data: JSON.stringify({ "hit_points": this_npc.hit_points }),
+		dataType: 'json',
+		processData: false,
+        beforeSend: function(jqXHR, settings) {
+        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
+        },
+        success: function(data, textStatus, jqXHR) {
+        	this_npc.update_ui();
+        },
+	});
 }
 
 NPC.prototype.update_ui = function() {

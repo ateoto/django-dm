@@ -21,11 +21,19 @@ Encounter.prototype.get_encounter = function() {
 }
 
 Encounter.prototype.update_ui = function() {
-	console.log('Update Encounter UI.');
 	var this_encounter = this;
-	console.log(this_encounter.npcs);
 	_.each(this_encounter.npcs, function(element) {
-		console.log('Rabble');
 		element.update_ui();
 	});
+}
+
+Encounter.prototype.get_npc_by_id = function(npc_id) {
+	var npc_id = npc_id;
+	var npc;
+	_.each(this.npcs, function(element) {
+		if (element.id == npc_id) {
+			npc = element;
+		}
+	});
+	return npc;
 }
