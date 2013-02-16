@@ -3,7 +3,9 @@ from tastypie import fields
 from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import DjangoAuthorization
 
-from dm.models import (Party, Campaign, Session, HistoryLine, NPCType, NPC, Encounter)
+from dm.models import (Party, Campaign, Session, HistoryLine, NPCType,
+                        NPC, Encounter, EncounterInitiative,
+                        EncounterParticipant)
 
 from character_builder.api.resources import CharacterResource
 
@@ -32,6 +34,8 @@ class HistoryLineResource(ModelResource):
     class Meta:
         queryset = HistoryLine.objects.all()
         resource_name = 'historyline'
+        authentication = SessionAuthentication()
+        authorization = DjangoAuthorization()
 
 
 class NPCTypeResource(ModelResource):
@@ -42,22 +46,28 @@ class NPCTypeResource(ModelResource):
 
 class NPCResource(ModelResource):
     class Meta:
-        queryset = NPC.objects.all()
+        queryset = NPC.objects.all().select_subclasses()
         resource_name = 'npc'
         authentication = SessionAuthentication()
         authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
-        real_obj = NPC.objects.get_subclass(id=bundle.obj.id)
-        if hasattr(real_obj, 'npc_type'):
-            bundle.data['name'] = real_obj.npc_type.name
-            bundle.data['level'] = real_obj.npc_type.level
-            bundle.data['role'] = real_obj.npc_type.pretty_role()
-            bundle.data['abilities'] = real_obj.get_abilities()
-            bundle.data['defenses'] = real_obj.get_defenses()
-            bundle.data['max_hit_points'] = real_obj.npc_type.max_hit_points
-        if hasattr(real_obj, 'hit_points'):
-            bundle.data['hit_points'] = real_obj.hit_points
+        if hasattr(bundle.obj, 'npc_type'):
+            bundle.data['name'] = bundle.obj.npc_type.name
+            bundle.data['level'] = bundle.obj.npc_type.level
+            bundle.data['role'] = bundle.obj.npc_type.pretty_role()
+            bundle.data['abilities'] = bundle.obj.get_abilities()
+            bundle.data['defenses'] = bundle.obj.get_defenses()
+            bundle.data['max_hit_points'] = bundle.obj.npc_type.max_hit_points
+        if hasattr(bundle.obj, 'hit_points'):
+            bundle.data['hit_points'] = bundle.obj.hit_points
+
+        return bundle
+
+    def hydrate(self, bundle):
+        if hasattr(bundle.obj, 'hit_points'):
+            bundle.obj.hit_points = bundle.data['hit_points']
+            bundle.obj.save()
 
         return bundle
 
@@ -73,3 +83,16 @@ class EncounterResource(ModelResource):
         bundle.data['initiative_table'] = bundle.obj.initiative_order()
 
         return bundle
+
+
+class EncounterParticipantResource(ModelResource):
+    class Meta:
+        queryset = EncounterParticipant.objects.all()
+
+
+class EncounterInitiativeResource(ModelResource):
+    participant = fields.ForeignKey(EncounterParticipantResource, 'participant')
+
+    class Meta:
+        queryset = EncounterInitiative.objects.all()
+        resource_name = 'encounter_resource'

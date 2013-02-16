@@ -63,13 +63,13 @@ class Encounter(models.Model):
     def initiative_order(self):
         init_table = []
         for ei in EncounterInitiative.objects.filter(encounter=self):
-            ei.participant = EncounterParticipant.get_subclass(id=ei.participant.id)
+            ei.participant = EncounterParticipant.objects.get_subclass(id=ei.participant.id)
             if hasattr(ei.participant, 'character'):
                 participant_type = 'pc'
             else:
                 participant_type = 'npc'
 
-            ei.append({
+            init_table.append({
                         'initiative': ei.initiative,
                         'type': participant_type,
                         'id': ei.participant.id

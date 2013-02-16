@@ -23,15 +23,71 @@ $(function() {
 	}
 
 	Encounter.prototype.update_ui = function() {
-		console.log('Update Encounter UI.');
 		var this_encounter = this;
-		console.log(this_encounter.npcs);
 		_.each(this_encounter.npcs, function(element) {
-			console.log('Rabble');
 			element.update_ui();
 		});
 	}
 
+	Encounter.prototype.get_npc_by_id = function(npc_id) {
+		var npc_id = npc_id;
+		var npc;
+		_.each(this.npcs, function(element) {
+			if (element.id == npc_id) {
+				npc = element;
+			}
+		});
+		return npc;
+	}
+
+	function NPC(resource_uri) {
+		this.resource_uri = resource_uri;
+	}
+
+	NPC.prototype.get_npc = function() {
+		var this_npc = this;
+		$.get(this_npc.resource_uri, '',
+			function(data) {
+				this_npc.id = data.id;
+				this_npc.name = data.name;
+				this_npc.hit_points = data.hit_points;
+				this_npc.max_hit_points = data.max_hit_points;
+				this_npc.role = data.role;
+				this_npc.abilities = data.abilities;
+				this_npc.defenses = data.defenses;
+				this_npc.level = data.level;
+				this_npc.update_ui();
+		}, "json");
+	}
+
+	NPC.prototype.set_npc = function() {
+		var this_npc = this;
+		$.ajax({
+			url: this_npc.resource_uri,
+			type: 'PATCH',
+			contentType: 'application/json',
+			data: JSON.stringify({ "hit_points": this_npc.hit_points }),
+			dataType: 'json',
+			processData: false,
+	        beforeSend: function(jqXHR, settings) {
+	        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
+	        },
+	        success: function(data, textStatus, jqXHR) {
+	        	this_npc.update_ui();
+	        },
+		});
+	}
+
+	NPC.prototype.update_ui = function() {
+		console.log('Update UI for NPC.');
+		if (this.hit_points <= 0) {
+			$('#npc-' + this.id).addClass('dead');
+		} else {
+			$('#npc-' + this.id).removeClass('dead');
+		}
+		$('#npc-hp-text-' + this.id).text(this.hit_points);
+		$('#npc-max-hp-text-' + this.id).text(this.max_hit_points);
+	}
 
 	function Party(resource_uri) {
 		this.resource_uri = resource_uri;
@@ -54,7 +110,6 @@ $(function() {
 	}
 
 	Party.prototype.update_ui = function() {
-		console.log('Updating all Character UI');
 		_.each(this.characters, function(element) {
 			element.update_ui();
 		});
@@ -69,29 +124,6 @@ $(function() {
 			}
 		});
 		return character;
-	}
-
-	function NPC(resource_uri) {
-		this.resource_uri = resource_uri;
-	}
-
-	NPC.prototype.get_npc = function() {
-		var this_npc = this;
-		$.get(this_npc.resource_uri, '',
-			function(data) {
-				this_npc.name = data.name;
-				this_npc.hit_points = data.hit_points;
-				this_npc.max_hit_points = data.max_hit_points;
-				this_npc.role = data.role;
-				this_npc.abilities = data.abilities;
-				this_npc.defenses = data.defenses;
-				this_npc.level = data.level;
-				this_npc.update_ui();
-		}, "json");
-	}
-
-	NPC.prototype.update_ui = function() {
-		console.log('Update UI for NPC.');
 	}
 
 	function Character(resource_uri) {
@@ -111,7 +143,6 @@ $(function() {
 				this_character.class_type = data.class_type.name;
 				this_character.defenses = data.defenses;
 				this_character.abilities = data.abilities;
-				console.log('Got character ' + this_character.id);
 				this_character.update_ui();
 		}, "json");
 	}
@@ -145,6 +176,10 @@ $(function() {
 	$('#pc-detail').hide();
 	$('#pc-detail-stats').hide();
 	$('#pc-detail-dm').hide();
+
+	$('#npc-detail').hide();
+	$('#npc-detail-stats').hide();
+	$('#npc-detail-dm').hide();
 
 	my_party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
 	encounter = new Encounter('/dm/api/v1/encounter/1/'); //For Now
@@ -229,6 +264,9 @@ $(function() {
 		if ($.isNumeric(initiative)) {
 			initiative = parseInt(initiative, 10);
 			$('#pc-init-' + pcid).text(initiative);
+
+			//Update Encounter Initiative Table
+
 		}
 		$('#pc-init').val('');
 	});
@@ -249,5 +287,120 @@ $(function() {
  		if (ev.which === 13) {
 			$('#pc-init-btn').click();
 		}
+	});
+
+	/********************** NPC ****************************/
+
+	$('.npc-overview').click(function() {
+		$('#pc-detai').hide();
+		$("#npc-detail").hide();
+		$('#npc-detail-stats').hide();
+		var npcid = $(this).attr('npc-id');
+		var npc = encounter.get_npc_by_id(npcid);
+		$('#npc-detail').attr('npc-id', npcid);
+		$('#npc-detail-name').text(npc.name);
+        $('#npc-detail-level-text').text(npc.level);
+        $('#npc-detail-flavor').text(npc.role);
+		$('#npc-detail-ac .npc-detail-defense-value').text(npc.defenses.ac.total);
+		$('#npc-detail-fort .npc-detail-defense-value').text(npc.defenses.fort.total);
+		$('#npc-detail-ref .npc-detail-defense-value').text(npc.defenses.ref.total);
+		$('#npc-detail-will .npc-detail-defense-value').text(npc.defenses.will.total);
+		$('#npc-detail-str .npc-detail-ability-check').text(npc.abilities.str.check);
+		$('#npc-detail-dex .npc-detail-ability-check').text(npc.abilities.dex.check);
+		$('#npc-detail-wis .npc-detail-ability-check').text(npc.abilities.wis.check);
+		$('#npc-detail-con .npc-detail-ability-check').text(npc.abilities.con.check);
+		$('#npc-detail-int .npc-detail-ability-check').text(npc.abilities.int.check);
+		$('#npc-detail-cha .npc-detail-ability-check').text(npc.abilities.cha.check);
+        
+        $('#npc-detail').show();
+        $('#npc-detail-toolbar .active').click();
+	});
+
+	$('#npc-detail-toolbar .btn').tooltip({ placement: 'bottom'});
+
+	$('#npc-initiative-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		$('#npc-initiative-form').attr('for-npc', npcid);
+		$('#initiative-modal').modal('show');
+		$('#npc-initiative-input').val($('#npc-init-' + npcid).text());
+		$('#npc-initiative-input').focus();
+	});
+
+	$('#npc-stats-btn').click(function() {
+		$('#npc-detail-dm').hide();
+		$('#npc-detail-stats').show();
+	});
+	
+	$('#npc-dm-btn').click(function() {
+		$('#npc-detail-stats').hide();
+		$('#npc-detail-dm').show();
+		$('#npc-damage').focus();
+	});
+
+	$('#npc-damage-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		var damage = $('#npc-damage').val();
+		if ($.isNumeric(damage)) {
+			damage = parseInt(damage, 10);
+			var npc = encounter.get_npc_by_id(npcid);
+			npc.hit_points -= damage;
+			npc.set_npc();
+			//Stuff to check bloodied/death
+		}
+		$('#npc-damage').val('');
+	});
+
+	$('#npc-heal-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		var heal = $('#npc-heal').val();
+		if ($.isNumeric(heal)) {
+			heal = parseInt(heal, 10);
+			var npc = encounter.get_npc_by_id(npcid);
+			npc.hit_points += heal;
+			npc.set_npc();
+			//stuff to limit to certain amount
+		}
+		$('#npc-heal').val('');
+	});
+
+	$('#npc-init-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		var initiative = $('#npc-init').val();
+		if ($.isNumeric(initiative)) {
+			initiative = parseInt(initiative, 10);
+			$('#npc-init-' + npcid).text(initiative);
+		}
+		$('#npc-init').val('');
+	});
+
+	$('#npc-symbol-btn').click(function() {
+		var npcid = $('#npc-detail').attr('npc-id');
+		var symbol = $('#npc-symbol').val();
+		$('#npc-symbol-' + npcid).text(symbol);
+		$('#npc-symbol').val('');
+	});
+
+	$("#npc-damage").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#npc-damage-btn').click();
+		}
 	}); 
+	
+	$("#npc-heal").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#npc-heal-btn').click();
+		}
+	}); 
+
+	$("#npc-init").keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#npc-init-btn').click();
+		}
+	});
+
+	$('#npc-symbol').keyup(function(ev) {
+		if (ev.which === 13) {
+			$('#npc-symbol-btn').click();
+		}
+	});
 });

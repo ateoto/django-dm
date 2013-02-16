@@ -32,7 +32,7 @@
                 </tbody>
             </table>
             <h3>NPCs</h3>
-            <table id="npc-overview" class="table table-striped table-bordered table-condensed table-hover" encounter-id="{{ encounter.id }}">
+            <table id="npc-overview" class="table table-bordered table-condensed table-hover" encounter-id="{{ encounter.id }}">
                 <thead>
                     <tr>
                         <th>Initiative</th>
@@ -140,6 +140,89 @@
                 </div>
             </div>
             <div id="npc-detail">
+                <h3>
+                    <span id="npc-detail-name"></span>
+                    <small>Level <span id="npc-detail-level-text"></span> <span id="npc-detail-flavor"></span></small>
+                </h3>
+                <div id="npc-detail-toolbar" class="btn-group" data-toggle="buttons-radio">
+                    <button id="npc-stats-btn" class="btn active" title="Stats">Stats</button>
+                    <button id="npc-powers-btn" class="btn" title="Powers">Powers</button>
+                    <button id="npc-feats-btn" class="btn" title="Feats">Feats</button>
+                    <button id="npc-equipment-btn" class="btn" title="Equipment">Equipment</button>
+                    <button id="npc-dm-btn" class="btn" title="Dungeon Master">DM</button>
+                </div>
+                <div id="npc-detail-stats" class="npc-detail-body">
+                    <div id="npc-detail-stats-defenses">
+                        <div class="row">
+                            <div id="npc-detail-ac" class="span6">
+                                <span class="npc-detail-defense-label">AC: </span>
+                                <span class="npc-detail-defense-value"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="npc-detail-fort" class="span2">
+                                <span class="npc-detail-defense-label">Fortitude: </span>
+                                <span class="npc-detail-defense-value"></span>
+                            </div>
+                            <div id="npc-detail-ref" class="span2">
+                                <span class="npc-detail-defense-label">Reflex: </span>
+                                <span class="npc-detail-defense-value"></span>
+                            </div>
+                            <div id="npc-detail-will" class="span2">
+                                <span class="npc-detail-defense-label">Will: </span>
+                                <span class="npc-detail-defense-value"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="npc-detail-stats-abilities">
+                        <div class="row">
+                            <div id="npc-detail-str" class="span2">
+                                <span class="npc-detail-ability-label">Str: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                            <div id="npc-detail-dex" class="span2">
+                                <span class="npc-detail-ability-label">Dex: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                            <div id="npc-detail-wis" class="span2">
+                                <span class="npc-detail-ability-label">Wis: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="npc-detail-con" class="span2">
+                                <span class="npc-detail-ability-label">Con: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                            <div id="npc-detail-int" class="span2">
+                                <span class="npc-detail-ability-label">Int: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                            <div id="npc-detail-cha" class="span2">
+                                <span class="npc-detail-ability-label">Cha: </span>
+                                <span class="npc-detail-ability-check"></span> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="npc-detail-dm" class="npc-detail-body">
+                    <div class="input-append">
+                      <input class="span2" id="npc-damage" type="text" placeholder="Damage">
+                      <button id="npc-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                    </div>
+                    <div class="input-append">
+                      <input class="span2" id="npc-heal" type="text" placeholder="Heal">
+                      <button id="npc-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                    </div>
+                    <div class="input-append">
+                      <input class="span2" id="npc-init" type="text" placeholder="Initiative">
+                      <button class="btn" id="npc-init-btn" type="button" tabindex="-1">Set Initiative</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span2" id="npc-symbol" type="text" placeholder="Symbol">
+                        <button class="btn" id="npc-symbol-btn" type="button" tabindex="-1">Set Symbol</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

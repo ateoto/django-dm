@@ -71,12 +71,10 @@ class NPCTypeAbility(models.Model):
     def check(self):
         check = self.modifier_half_level()
 
-        if check < 0:
-            mod = "-"
-        elif check == 0:
-            mod = ""
-        else:
+        if check > 0:
             mod = "+"
+        else:
+            mod = ""
 
         return "%s%s" % (mod, check)
 

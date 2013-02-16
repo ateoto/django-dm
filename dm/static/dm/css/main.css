@@ -18,6 +18,10 @@ body {
 	text-align: center;
 }
 
-.pc-detail-body {
+.pc-detail-body, .npc-detail-body {
 	margin-top: 10px;
+}
+
+.dead {
+	background-color: #ec9191 !important;
 }
