@@ -8,7 +8,7 @@ $(function() {
 	$('#npc-detail-dm').hide();
 
 	party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
-	encounter = new Encounter('/dm/api/v1/encounter/1/'); //For Now
+	encounter = new Encounter('/dm/api/v1/encounter/3/'); //For Now
 
 	party.get_party();
 	encounter.get_encounter();

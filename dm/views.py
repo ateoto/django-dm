@@ -11,6 +11,26 @@ from dm.models import Party, Encounter
 
 
 @login_required
+def encounter(request, encounter_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    response_dict = {}
+    encounter = get_object_or_404(Encounter, id=encounter_id)
+    response_dict['encounter'] = encounter
+    response_dict['party'] = encounter.party
+
+    return render_to_response('dm/encounter.html',
+            response_dict,
+            context_instance=RequestContext(request))
+
+
+@login_required
+def encounter_builder(request):
+    pass
+
+
+@login_required
 def party(request, party_id):
     response_dict = {}
 
@@ -27,8 +47,8 @@ def party(request, party_id):
 
 
 @login_required
-def npc(request):
+def npc_builder(request):
     response_dict = {}
-    return render_to_response('dm/npc.html',
+    return render_to_response('dm/npc_builder.html',
             response_dict,
             context_instance=RequestContext(request))

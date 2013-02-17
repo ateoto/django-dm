@@ -70,12 +70,12 @@ class Encounter(EncounterTemplate):
     def __unicode__(self):
         return "%s instance for %s" % (self.name, self.party.name)
 
-    def from_template(self, encounter):
-        self = encounter
+    def from_template(self, encounter_template):
+        self = encounter_template
         self.pk = None
         self.id = None
         self.save()
-        self.npcs = encounter.npcs.all()
+        self.npcs = encounter_template.npcs.all()
         self.save()
 
     def initiative_order(self):
