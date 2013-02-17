@@ -1,6 +1,112 @@
 [
     {
         "pk": 1, 
+        "model": "dm.npctype", 
+        "fields": {
+            "name": "Kobold Minion", 
+            "roles": [
+                5
+            ], 
+            "level": 1, 
+            "max_hit_points": 1, 
+            "race": 18, 
+            "alignment": 3, 
+            "xp_reward": 25, 
+            "vision": 3
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 1, 
+            "value": 8
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 2, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 3, 
+            "value": 16
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 4, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 5, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 1, 
+            "ability": 6, 
+            "value": 10
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 1, 
+            "defense": 1, 
+            "value": 15
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 1, 
+            "defense": 2, 
+            "value": 11
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 1, 
+            "defense": 3, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 1, 
+            "defense": 4, 
+            "value": 11
+        }
+    }, 
+    {
+        "pk": 1, 
         "model": "dm.party", 
         "fields": {
             "characters": [
