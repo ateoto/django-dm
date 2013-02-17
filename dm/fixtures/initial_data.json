@@ -295,7 +295,7 @@
         "model": "dm.npctypedefense", 
         "fields": {
             "npc_type": 3, 
-            "defense": 1, 
+            "defense": 2, 
             "value": 14
         }
     }, 
