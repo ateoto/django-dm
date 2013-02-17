@@ -16,6 +16,38 @@
         }
     }, 
     {
+        "pk": 2, 
+        "model": "dm.npctype", 
+        "fields": {
+            "name": "Kobold Slinger", 
+            "roles": [
+                8
+            ], 
+            "level": 1, 
+            "max_hit_points": 24, 
+            "race": 18, 
+            "alignment": 3, 
+            "xp_reward": 100, 
+            "vision": 3
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.npctype", 
+        "fields": {
+            "name": "Kobold Dragonshield", 
+            "roles": [
+                7
+            ], 
+            "level": 2, 
+            "max_hit_points": 36, 
+            "race": 18, 
+            "alignment": 3, 
+            "xp_reward": 125, 
+            "vision": 3
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.npctypeability", 
         "fields": {
@@ -70,6 +102,114 @@
         }
     }, 
     {
+        "pk": 7, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 1, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 2, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 3, 
+            "value": 17
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 4, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 5, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 2, 
+            "ability": 6, 
+            "value": 10
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 1, 
+            "value": 14
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 2, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 3, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 4, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 5, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 3, 
+            "ability": 6, 
+            "value": 10
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.npctypedefense", 
         "fields": {
@@ -106,6 +246,198 @@
         }
     }, 
     {
+        "pk": 5, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 2, 
+            "defense": 1, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 2, 
+            "defense": 2, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 2, 
+            "defense": 3, 
+            "value": 14
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 2, 
+            "defense": 4, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 3, 
+            "defense": 1, 
+            "value": 18
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 3, 
+            "defense": 1, 
+            "value": 14
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 3, 
+            "defense": 3, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 3, 
+            "defense": 4, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 1, 
+            "hit_points": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 1, 
+            "hit_points": 1
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 1, 
+            "hit_points": 1
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 1, 
+            "hit_points": 1
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 1, 
+            "hit_points": 1
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 2, 
+            "hit_points": 24
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.party", 
         "fields": {
@@ -117,7 +449,7 @@
                 9
             ], 
             "formed_on": "2013-01-20", 
-            "name": "Unnamed Group", 
+            "name": "The Servants of Downton Stabby", 
             "background": ""
         }
     }, 
@@ -137,6 +469,73 @@
             "start_time": "2013-01-21T01:00:00Z", 
             "end_time": "2013-01-21T06:30:00Z", 
             "campaign": 1
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [
+                1, 
+                2, 
+                3, 
+                4, 
+                5, 
+                6, 
+                7, 
+                8
+            ], 
+            "name": "On the road: Kobold brigands"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [], 
+            "name": "On the road: Kobold brigands"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [
+                1, 
+                2, 
+                3, 
+                4, 
+                5, 
+                6, 
+                7, 
+                8
+            ], 
+            "name": "On the road: Kobold brigands"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [], 
+            "name": "On the road: Kobold brigands"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "dm.encounter", 
+        "fields": {
+            "npcs": [
+                1, 
+                2, 
+                3, 
+                4, 
+                5, 
+                6, 
+                7, 
+                8
+            ], 
+            "party": 1
         }
     }
 ]
