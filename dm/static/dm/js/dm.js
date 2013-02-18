@@ -14,7 +14,8 @@ $(function() {
 	encounter.get_encounter();
 
 	$('.pc-character-overview').click(function() {
-		$("#pc-detail").hide();
+		$('#pc-detai').hide();
+		$("#npc-detail").hide();
 		$('#pc-detail-stats').hide();
 		var pcid = $(this).attr('pc-id');
 		var character = party.get_character_by_id(pcid);
