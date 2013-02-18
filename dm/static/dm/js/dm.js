@@ -8,14 +8,14 @@ $(function() {
 	$('#npc-detail-dm').hide();
 
 	party = new Party('/dm/api/v1/party/' + $('#pc-overview').attr('party-id') + '/');
-	encounter = new Encounter('/dm/api/v1/encounter/3/'); //For Now
+	encounter = new Encounter('/dm/api/v1/encounter/' + $('#encounter').attr('encounter-id') + '/');
 
 	party.get_party();
 	encounter.get_encounter();
 
 	$('.pc-character-overview').click(function() {
-		$('#pc-detai').hide();
-		$("#npc-detail").hide();
+		$('#pc-detail').hide();
+		$('#npc-detail').hide();
 		$('#pc-detail-stats').hide();
 		var pcid = $(this).attr('pc-id');
 		var character = party.get_character_by_id(pcid);
@@ -90,7 +90,9 @@ $(function() {
 		var initiative = $('#pc-init').val();
 		if ($.isNumeric(initiative)) {
 			initiative = parseInt(initiative, 10);
-			$('#pc-init-' + pcid).text(initiative);
+			var character = party.get_character_by_id(pcid);
+			character.initiative = initiative;
+			$('#pc-init-' + pcid).text(character.initiative);
 
 			//Update Encounter Initiative Table
 
@@ -119,8 +121,8 @@ $(function() {
 	/********************** NPC ****************************/
 
 	$('.npc-overview').click(function() {
-		$('#pc-detai').hide();
-		$("#npc-detail").hide();
+		$('#pc-detail').hide();
+		$('#npc-detail').hide();
 		$('#npc-detail-stats').hide();
 		var npcid = $(this).attr('npc-id');
 		var npc = encounter.get_npc_by_id(npcid);
@@ -195,7 +197,9 @@ $(function() {
 		var initiative = $('#npc-init').val();
 		if ($.isNumeric(initiative)) {
 			initiative = parseInt(initiative, 10);
-			$('#npc-init-' + npcid).text(initiative);
+			var npc = encounter.get_npc_by_id(pcid);
+			npc.initiative = initiative;
+			$('#npc-init-' + pcid).text(npc.initiative);
 		}
 		$('#npc-init').val('');
 	});

@@ -14,6 +14,7 @@ NPC.prototype.get_npc = function() {
 			this_npc.abilities = data.abilities;
 			this_npc.defenses = data.defenses;
 			this_npc.level = data.level;
+			this_npc.initiative = data.abilities.dex.modifier_half_level;
 			this_npc.update_ui();
 	}, "json");
 }
@@ -43,6 +44,7 @@ NPC.prototype.update_ui = function() {
 	} else {
 		$('#npc-' + this.id).removeClass('dead');
 	}
+	$('#npc-init-' + this.id).text(this.initiative);
 	$('#npc-hp-text-' + this.id).text(this.hit_points);
 	$('#npc-max-hp-text-' + this.id).text(this.max_hit_points);
 }

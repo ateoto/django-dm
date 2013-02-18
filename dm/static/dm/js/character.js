@@ -15,6 +15,7 @@ Character.prototype.get_character = function() {
 			this_character.class_type = data.class_type.name;
 			this_character.defenses = data.defenses;
 			this_character.abilities = data.abilities;
+			this_character.initiative = data.abilities.dex.modifier_half_level;
 			console.log('Got character ' + this_character.id);
 			this_character.update_ui();
 	}, "json");
@@ -41,7 +42,7 @@ Character.prototype.set_character = function() {
 Character.prototype.update_ui = function() {
 	console.log('Update ui for ' + this.id);
 	var hp_percentage = ((this.hit_points / this.max_hit_points) * 100);
-	$('#pc-init-' + this.id).text(this.abilities.dex.modifier_half_level);
+	$('#pc-init-' + this.id).text(this.initiative);
 	$('#hp-text-' + this.id).text(this.hit_points);
 	$('#max-hp-text-' + this.id).text(this.max_hit_points);
 }
