@@ -48,6 +48,37 @@
         }
     }, 
     {
+        "pk": 4, 
+        "model": "dm.npctype", 
+        "fields": {
+            "name": "Kobold Skirmisher", 
+            "roles": [], 
+            "level": 1, 
+            "max_hit_points": 27, 
+            "race": 18, 
+            "alignment": 3, 
+            "xp_reward": 100, 
+            "vision": 3
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "dm.npctype", 
+        "fields": {
+            "name": "Kobold Wyrmpriest", 
+            "roles": [
+                3, 
+                8
+            ], 
+            "level": 3, 
+            "max_hit_points": 36, 
+            "race": 18, 
+            "alignment": 3, 
+            "xp_reward": 150, 
+            "vision": 3
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.npctypeability", 
         "fields": {
@@ -210,6 +241,123 @@
         }
     }, 
     {
+        "pk": 19, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 1, 
+            "value": 8
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 2, 
+            "value": 11
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 3, 
+            "value": 16
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 4, 
+            "value": 6
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 5, 
+            "value": 10
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 4, 
+            "ability": 6, 
+            "value": 15
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 1, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 2, 
+            "value": 12
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 3, 
+            "value": 16
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 4, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 4, 
+            "value": 9
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 5, 
+            "value": 17
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "dm.npctypeability", 
+        "fields": {
+            "npc_type": 5, 
+            "ability": 6, 
+            "value": 12
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.npctypedefense", 
         "fields": {
@@ -318,6 +466,78 @@
         }
     }, 
     {
+        "pk": 13, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 4, 
+            "defense": 1, 
+            "value": 15
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 4, 
+            "defense": 2, 
+            "value": 11
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 4, 
+            "defense": 3, 
+            "value": 14
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 4, 
+            "defense": 4, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 5, 
+            "defense": 1, 
+            "value": 17
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 5, 
+            "defense": 2, 
+            "value": 13
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 5, 
+            "defense": 3, 
+            "value": 15
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "dm.npctypedefense", 
+        "fields": {
+            "npc_type": 5, 
+            "defense": 4, 
+            "value": 15
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "dm.npc", 
         "fields": {
@@ -368,6 +588,41 @@
     }, 
     {
         "pk": 8, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "dm.npc", 
+        "fields": {
+            "is_alive": true
+        }
+    }, 
+    {
+        "pk": 13, 
         "model": "dm.npc", 
         "fields": {
             "is_alive": true
@@ -434,6 +689,46 @@
         "model": "dm.monsternpc", 
         "fields": {
             "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 3, 
+            "hit_points": 36
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 4, 
+            "hit_points": 27
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "dm.monsternpc", 
+        "fields": {
+            "npc_type": 5, 
             "hit_points": 36
         }
     }, 
@@ -522,6 +817,34 @@
         }
     }, 
     {
+        "pk": 5, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [
+                9, 
+                10, 
+                11, 
+                12, 
+                13
+            ], 
+            "name": "A1: Kobold Ambush"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.encountertemplate", 
+        "fields": {
+            "npcs": [
+                9, 
+                10, 
+                11, 
+                12, 
+                13
+            ], 
+            "name": "A1: Kobold Ambush"
+        }
+    }, 
+    {
         "pk": 3, 
         "model": "dm.encounter", 
         "fields": {
@@ -534,6 +857,20 @@
                 6, 
                 7, 
                 8
+            ], 
+            "party": 1
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "dm.encounter", 
+        "fields": {
+            "npcs": [
+                9, 
+                10, 
+                11, 
+                12, 
+                13
             ], 
             "party": 1
         }
