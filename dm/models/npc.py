@@ -1,6 +1,7 @@
 from django.db import models
 
-from character_builder.models import (Race, Vision, Role, Alignment, Ability, Defense)
+from character_builder.models import (Race, Vision, Role, Alignment,
+                                    Ability, Defense, Condition)
 from model_utils.managers import InheritanceManager
 
 import math
@@ -94,6 +95,7 @@ class NPCTypeDefense(models.Model):
 class NPC(models.Model):
     objects = InheritanceManager()
     is_alive = models.BooleanField(default=True)
+    conditions = models.ManyToManyField(Condition, blank=True)
 
     class Meta:
         app_label = 'dm'

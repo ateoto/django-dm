@@ -97,6 +97,8 @@ class Encounter(EncounterTemplate):
 
 
 class EncounterParticipant(models.Model):
+    initiative = models.IntegerField(default=0)
+    symbol = models.CharField(blank=True)
     objects = InheritanceManager()
 
     class Meta:

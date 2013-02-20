@@ -4,6 +4,8 @@ $(function() {
 	$('#pc-detail-dm').hide();
 
 	$('#npc-detail').hide();
+	//$('#detail').affix({ offset: {x: 400, y : 30}});
+
 	$('#npc-detail-stats').hide();
 	$('#npc-detail-dm').hide();
 

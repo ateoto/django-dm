@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
 from dm.models import Party, Encounter
+from dm.forms import NPCTypeForm, NPCStatsForm
 
 
 @login_required
@@ -48,7 +49,16 @@ def party(request, party_id):
 
 @login_required
 def npc_builder(request):
+    if request.method == "POST":
+        npc_form = NPCTypeForm(request.POST)
+        npc_stats_form = NPCStatsForm(request.POST)
+        if npc_form.is_valid() and npc_stats_form.is_valid():
+            return HttpResponse('Cool.')
+
     response_dict = {}
+    response_dict['npc_form'] = NPCTypeForm()
+    response_dict['npc_stats_form'] = NPCStatsForm()
+
     return render_to_response('dm/npc_builder.html',
             response_dict,
             context_instance=RequestContext(request))
