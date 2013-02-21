@@ -1,0 +1,35 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+#panel-1 {
+	float: left;
+	width: 376px;
+	padding: 10px;
+}
+
+#panel-2 {
+	float: left;
+	width: 376px;
+	padding: 10px;
+}
+
+#panel-3 {
+	float: left;
+	width: 376px;
+	padding: 10px;
+}
+
+#panel-4 {
+	float: left;
+	width: 376px;
+	padding: 10px;
+}
+
+.dead {
+	background-color: #ec9191 !important;
+}
+
+.pc-detail-body, .npc-detail-body {
+	margin-top: 10px;
+}

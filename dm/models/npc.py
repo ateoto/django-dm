@@ -1,7 +1,10 @@
 from django.db import models
 
 from character_builder.models import (Race, Vision, Role, Alignment,
-                                    Ability, Defense, Condition)
+                                    Ability, Defense, Condition, Skill,
+                                    PowerRange, ActionType, PowerKeyword,
+                                    PowerUsage)
+
 from model_utils.managers import InheritanceManager
 
 import math
@@ -92,6 +95,38 @@ class NPCTypeDefense(models.Model):
         return "%s %s %s" % (self.npc_type.name, self.defense.name, self.value)
 
 
+class NPCTypeSkill(models.Model):
+    npc_type = models.ForeignKey(NPCType, related_name='skills')
+    skill = models.ForeignKey(Skill)
+    value = models.IntegerField()
+
+    class Meta:
+        app_label = 'dm'
+
+    def __unicode__(self):
+        return "%s %s %s" % (self.npc_type.name, self.skill.name, self.value)
+
+
+class NPCTypePower(models.Model):
+    npc_type = models.ForeignKey(NPCType, related_name='powers')
+    name = models.CharField(max_length=100)
+    attack_type = models.ForeignKey(PowerRange)
+    action_type = models.ForeignKey(ActionType)
+    keywords = models.ManyToManyField(PowerKeyword)
+    usage = models.ForeignKey(PowerUsage)
+    description = models.TextField(blank=True)
+
+    class Meta:
+        app_label = 'dm'
+
+    def __unicode__(self):
+        return self.name
+
+
+class NPCTypeEquipment(models.Model):
+    pass
+
+
 class NPC(models.Model):
     objects = InheritanceManager()
     is_alive = models.BooleanField(default=True)
@@ -128,6 +163,9 @@ class NPC(models.Model):
                 }
 
         return response
+
+    def get_powers(self):
+        return {}
 
 
 class MonsterNPC(NPC):

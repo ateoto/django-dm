@@ -1,6 +1,6 @@
 from .organization import (Party, Campaign, Session, HistoryLine, Encounter,
                             EncounterParticipant, PCEncounterParticipant,
-                            NPCEncounterParticipant, EncounterTemplate, EncounterInitiative)
+                            NPCEncounterParticipant, EncounterTemplate)
 from .npc import (NPCType, NPC, MonsterNPC, BasicStoryNPC, StoryNPC,
                     NPCTypeAbility, NPCTypeDefense)
 
@@ -20,6 +20,5 @@ __all__ = [
     'EncounterParticipant',
     'PCEncounterParticipant',
     'NPCEncounterParticipant',
-    'EncounterInitiative',
     'EncounterTemplate',
 ]

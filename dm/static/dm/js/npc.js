@@ -40,9 +40,9 @@ NPC.prototype.set_npc = function() {
 NPC.prototype.update_ui = function() {
 	console.log('Update UI for NPC.');
 	if (this.hit_points <= 0) {
-		$('#npc-' + this.id).addClass('dead');
+		$('#npc-' + this.id + ' > td').addClass('dead');
 	} else {
-		$('#npc-' + this.id).removeClass('dead');
+		$('#npc-' + this.id + ' > td').removeClass('dead');
 	}
 	$('#npc-init-' + this.id).text(this.initiative);
 	$('#npc-hp-text-' + this.id).text(this.hit_points);

@@ -4,8 +4,7 @@ from tastypie.authentication import SessionAuthentication
 from tastypie.authorization import DjangoAuthorization
 
 from dm.models import (Party, Campaign, Session, HistoryLine, NPCType,
-                        NPC, Encounter, EncounterInitiative,
-                        EncounterParticipant)
+                        NPC, Encounter,EncounterParticipant)
 
 from character_builder.api.resources import CharacterResource
 
@@ -59,6 +58,9 @@ class NPCResource(ModelResource):
             bundle.data['abilities'] = bundle.obj.get_abilities()
             bundle.data['defenses'] = bundle.obj.get_defenses()
             bundle.data['max_hit_points'] = bundle.obj.npc_type.max_hit_points
+            bundle.data['initiative'] = bundle.data['abilities']['dex']['check']
+            bundle.data['perception'] = bundle.data['abilities']['wis']['check']
+
         if hasattr(bundle.obj, 'hit_points'):
             bundle.data['hit_points'] = bundle.obj.hit_points
 
@@ -81,7 +83,7 @@ class EncounterResource(ModelResource):
         resource_name = 'encounter'
 
     def dehydrate(self, bundle):
-        bundle.data['initiative_table'] = bundle.obj.initiative_order()
+        bundle.data['initiative_table'] = {}  # bundle.obj.initiative_order()
 
         return bundle
 
@@ -89,11 +91,3 @@ class EncounterResource(ModelResource):
 class EncounterParticipantResource(ModelResource):
     class Meta:
         queryset = EncounterParticipant.objects.all()
-
-
-class EncounterInitiativeResource(ModelResource):
-    participant = fields.ForeignKey(EncounterParticipantResource, 'participant')
-
-    class Meta:
-        queryset = EncounterInitiative.objects.all()
-        resource_name = 'encounter_resource'

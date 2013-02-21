@@ -27,6 +27,21 @@ def encounter(request, encounter_id):
 
 
 @login_required
+def encounter_wm(request, encounter_id):
+    if not request.user.is_superuser:
+        raise PermissionDenied
+
+    response_dict = {}
+    encounter = get_object_or_404(Encounter, id=encounter_id)
+    response_dict['encounter'] = encounter
+    response_dict['party'] = encounter.party
+
+    return render_to_response('dm/encounter_widemouth.html',
+            response_dict,
+            context_instance=RequestContext(request))
+
+
+@login_required
 def encounter_builder(request):
     pass
 

@@ -80,7 +80,7 @@ class Encounter(EncounterTemplate):
 
     def initiative_order(self):
         init_table = []
-        for ei in EncounterInitiative.objects.filter(encounter=self):
+        for ei in EncounterParticipant.objects.filter(encounter=self):
             ei.participant = EncounterParticipant.objects.get_subclass(id=ei.participant.id)
             if hasattr(ei.participant, 'character'):
                 participant_type = 'pc'
@@ -97,12 +97,16 @@ class Encounter(EncounterTemplate):
 
 
 class EncounterParticipant(models.Model):
+    encounter = models.ForeignKey(Encounter)
     initiative = models.IntegerField(default=0)
-    symbol = models.CharField(blank=True)
+    symbol = models.CharField(max_length=3, blank=True)
     objects = InheritanceManager()
 
     class Meta:
         app_label = 'dm'
+
+    def __unicode__(self):
+        return EncounterParticipant.objects.get_subclass(id=self.id).__unicode__
 
 
 class PCEncounterParticipant(EncounterParticipant):
@@ -111,6 +115,9 @@ class PCEncounterParticipant(EncounterParticipant):
     class Meta:
         app_label = 'dm'
 
+    def __unicode__(self):
+        return self.character.name
+
 
 class NPCEncounterParticipant(EncounterParticipant):
     npc = models.ForeignKey(NPC)
@@ -118,11 +125,5 @@ class NPCEncounterParticipant(EncounterParticipant):
     class Meta:
         app_label = 'dm'
 
-
-class EncounterInitiative(models.Model):
-    encounter = models.ForeignKey(Encounter)
-    participant = models.ForeignKey(EncounterParticipant)
-    initiative = models.IntegerField()
-
-    class Meta:
-        app_label = 'dm'
+    def __unicode__(self):
+        return 'NPC Name Coming Soon'
