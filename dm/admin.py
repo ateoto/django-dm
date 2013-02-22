@@ -1,7 +1,7 @@
 from django.contrib import admin
 from dm.models import (Party, Campaign, Session, HistoryLine, NPCType,
                         NPCTypeAbility, NPCTypeDefense, MonsterNPC,
-                        EncounterTemplate)
+                        EncounterTemplate, NPCTypePower)
 
 
 admin.site.register(Party)
@@ -13,3 +13,4 @@ admin.site.register(NPCTypeAbility)
 admin.site.register(NPCTypeDefense)
 admin.site.register(MonsterNPC)
 admin.site.register(EncounterTemplate)
+admin.site.register(NPCTypePower)

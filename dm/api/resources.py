@@ -55,11 +55,14 @@ class NPCResource(ModelResource):
             bundle.data['name'] = bundle.obj.npc_type.name
             bundle.data['level'] = bundle.obj.npc_type.level
             bundle.data['role'] = bundle.obj.npc_type.pretty_role()
+            bundle.data['speed'] = bundle.obj.npc_type.race.speed
+            bundle.data['xp_reward'] = bundle.obj.npc_type.xp_reward
             bundle.data['abilities'] = bundle.obj.get_abilities()
             bundle.data['defenses'] = bundle.obj.get_defenses()
             bundle.data['max_hit_points'] = bundle.obj.npc_type.max_hit_points
             bundle.data['initiative'] = bundle.data['abilities']['dex']['check']
             bundle.data['perception'] = bundle.data['abilities']['wis']['check']
+            bundle.data['powers'] = bundle.obj.get_powers()
 
         if hasattr(bundle.obj, 'hit_points'):
             bundle.data['hit_points'] = bundle.obj.hit_points

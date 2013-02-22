@@ -12,6 +12,9 @@ $(function() {
 
 	party.get_party();
 	encounter.get_encounter();
+	
+	var npc_source = $('#npc-template').html();
+	var npc_template = Handlebars.compile(npc_source);
 
 	$('.pc-character-overview').click(function() {
 		$('#pc-detail').hide();
@@ -129,20 +132,12 @@ $(function() {
 		$('#npc-detail-stats').hide();
 		var npcid = $(this).attr('npc-id');
 		var npc = encounter.get_npc_by_id(npcid);
+		$('#npc-detail-body-container').html(npc_template(npc));
+
 		$('#npc-detail').attr('npc-id', npcid);
 		$('#npc-detail-name').text(npc.name);
         $('#npc-detail-level-text').text(npc.level);
         $('#npc-detail-flavor').text(npc.role);
-		$('#npc-detail-ac .npc-detail-defense-value').text(npc.defenses.ac.total);
-		$('#npc-detail-fort .npc-detail-defense-value').text(npc.defenses.fort.total);
-		$('#npc-detail-ref .npc-detail-defense-value').text(npc.defenses.ref.total);
-		$('#npc-detail-will .npc-detail-defense-value').text(npc.defenses.will.total);
-		$('#npc-detail-str .npc-detail-ability-check').text(npc.abilities.str.check);
-		$('#npc-detail-dex .npc-detail-ability-check').text(npc.abilities.dex.check);
-		$('#npc-detail-wis .npc-detail-ability-check').text(npc.abilities.wis.check);
-		$('#npc-detail-con .npc-detail-ability-check').text(npc.abilities.con.check);
-		$('#npc-detail-int .npc-detail-ability-check').text(npc.abilities.int.check);
-		$('#npc-detail-cha .npc-detail-ability-check').text(npc.abilities.cha.check);
         
         $('#npc-detail').show();
         $('#npc-detail-toolbar .active').click();

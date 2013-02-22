@@ -2,18 +2,90 @@
 {% load staticfiles %}
 {% block css %}
 {{ block.super }}
-<link href="{% static "dm/css/encounter-wm.css" %}" rel="stylesheet">
+        <link href="{% static "dm/css/encounter-wm.css" %}" rel="stylesheet">
 {% endblock css %}
 
 {% block js %}
 {{ block.super }}
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-<script src="{% static "dm/js/encounter.js" %}"></script>
-<script src="{% static "dm/js/npc.js" %}"></script>
-<script src="{% static "dm/js/party.js" %}"></script>
-<script src="{% static "dm/js/character.js" %}"></script>
-<script src="{% static "dm/js/encounter-dm.js" %}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="{% static "dm/js/handlebars-1.0.rc.1.min.js" %}"></script>
+        <script src="{% static "dm/js/encounter.js" %}"></script>
+        <script src="{% static "dm/js/npc.js" %}"></script>
+        <script src="{% static "dm/js/party.js" %}"></script>
+        <script src="{% static "dm/js/character.js" %}"></script>
+        <script src="{% static "dm/js/encounter-dm.js" %}"></script>
+
+        {% verbatim %}
+        <script id="npc-template" type="text/x-handlebars-template">
+            <div class="npc-header">
+                <div class="npc-name-line clearfix">
+                    <span class="npc-name pull-left">{{ name }}</span>
+                    <span class="npc-level pull-right">Level {{ level }} {{ role }}</span>
+                </div>
+                <div class="npc-origin-line clearfix">
+                    <span class="npc-origin pull-left">Size origin type</span>
+                    <span class="npc-xp-reward pull-right">XP {{ xp_reward }}</span>
+                </div>
+                <div class="npc-senses-line clearfix">
+                    <span class="npc-initiative pull-left"><strong>Initiative</strong> {{ initiative }}</span>
+                    <span class="npc-senses pull-right"><strong>Senses </strong>Perception {{ perception }}</span>
+                </div>
+                <div class="npc-health-line clearfix">
+                    <strong>HP</strong> {{ hit_points }}
+                    {{#if bloodied}}; <strong>Bloodied</strong> {{ bloodied }} {{/if}}
+                </div>
+                <div class="npc-defense-line">
+                    <strong>AC</strong> {{ defenses.ac.total }}; 
+                    <strong>Fortitude</strong> {{ defenses.fort.total }}, 
+                    <strong>Reflex</strong> {{ defenses.ref.total }}, 
+                    <strong>Will</strong> {{ defenses.will.total }}
+                </div>
+                <div class="npc-speed-line">
+                    <strong>Speed</strong> {{ speed }}
+                </div>
+            {{#each powers }}
+            <div class="npc-power">
+                <strong>{{ this.name }}</strong> {{ this.action_line }} {{#if this.keywords}}* <strong>{{ this.keywords }}</strong>{{/if}}<br>
+                {{ this.description }}
+            </div>
+            {{/each}}
+
+                <div id="npc-detail-stats-abilities">
+                    <div class="row">
+                        <div id="npc-detail-str" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Str</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.str.score }} ({{ abilities.str.check }})</span> 
+                        </div>
+                        <div id="npc-detail-dex" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Dex</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.dex.score }} ({{ abilities.dex.check }})</span> 
+                        </div>
+                        <div id="npc-detail-wis" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Wis</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.wis.score }} ({{ abilities.wis.check }})</span> 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="npc-detail-con" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Con</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.con.score }} ({{ abilities.con.check }})</span> 
+                        </div>
+                        <div id="npc-detail-int" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Int</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.int.score }} ({{ abilities.int.check }})</span> 
+                        </div>
+                        <div id="npc-detail-cha" class="span2">
+                            <span class="npc-detail-ability-label"><strong>Cha</strong> </span>
+                            <span class="npc-detail-ability-check">{{ abilities.cha.score }} ({{ abilities.cha.check }})</span> 
+                        </div>
+                    </div>
+                </div>
+        </script>
+        {% endverbatim %}
 {% endblock %}
+
+
+
 {% block content %}
 <div id="encounter" encounter-id="{{ encounter.id }}">
     <div id="panel-1">
@@ -191,60 +263,7 @@
                 <button id="npc-equipment-btn" class="btn" title="Equipment">Equipment</button>
                 <button id="npc-dm-btn" class="btn" title="Dungeon Master">DM</button>
             </div>
-            <div id="npc-detail-stats" class="npc-detail-body">
-                <div id="npc-detail-stats-defenses">
-                    <div class="row">
-                        <div id="npc-detail-ac" class="span6">
-                            <span class="npc-detail-defense-label">AC: </span>
-                            <span class="npc-detail-defense-value"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="npc-detail-fort" class="span2">
-                            <span class="npc-detail-defense-label">Fortitude: </span>
-                            <span class="npc-detail-defense-value"></span>
-                        </div>
-                        <div id="npc-detail-ref" class="span2">
-                            <span class="npc-detail-defense-label">Reflex: </span>
-                            <span class="npc-detail-defense-value"></span>
-                        </div>
-                        <div id="npc-detail-will" class="span2">
-                            <span class="npc-detail-defense-label">Will: </span>
-                            <span class="npc-detail-defense-value"></span>
-                        </div>
-                    </div>
-                </div>
-                <div id="npc-detail-stats-abilities">
-                    <div class="row">
-                        <div id="npc-detail-str" class="span2">
-                            <span class="npc-detail-ability-label">Str: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                        <div id="npc-detail-dex" class="span2">
-                            <span class="npc-detail-ability-label">Dex: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                        <div id="npc-detail-wis" class="span2">
-                            <span class="npc-detail-ability-label">Wis: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div id="npc-detail-con" class="span2">
-                            <span class="npc-detail-ability-label">Con: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                        <div id="npc-detail-int" class="span2">
-                            <span class="npc-detail-ability-label">Int: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                        <div id="npc-detail-cha" class="span2">
-                            <span class="npc-detail-ability-label">Cha: </span>
-                            <span class="npc-detail-ability-check"></span> 
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="npc-detail-body-container"></div>
             <div id="npc-detail-dm" class="npc-detail-body">
                 <div class="input-append">
                   <input class="span2" id="npc-damage" type="text" placeholder="Damage">

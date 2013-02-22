@@ -27,8 +27,7 @@ class NPCType(models.Model):
         return "%s Level %i %s" % (self.name, self.level, self.pretty_role())
 
     def pretty_role(self):
-        roles = [role.name for role in self.roles.all()]
-        role_string = ' '.join(roles)
+        role_string = ' '.join([role.name for role in self.roles.all()])
         if self.is_elite():
             role_string = role_string.replace('Elite', '')
             role_string = "Elite %s" % (role_string)
@@ -39,7 +38,7 @@ class NPCType(models.Model):
             role_string = role_string.replace('Leader', '')
             role_string = "%s (Leader)" % (role_string)
 
-        return role_string
+        return role_string.strip()
 
     def is_elite(self):
         elite = Role.objects.get(name='Elite')
@@ -110,10 +109,11 @@ class NPCTypeSkill(models.Model):
 class NPCTypePower(models.Model):
     npc_type = models.ForeignKey(NPCType, related_name='powers')
     name = models.CharField(max_length=100)
-    attack_type = models.ForeignKey(PowerRange)
-    action_type = models.ForeignKey(ActionType)
-    keywords = models.ManyToManyField(PowerKeyword)
-    usage = models.ForeignKey(PowerUsage)
+    attack_type = models.ForeignKey(PowerRange, blank=True, null=True)
+    action_type = models.ForeignKey(ActionType, blank=True, null=True)
+    keywords = models.ManyToManyField(PowerKeyword, blank=True, null=True)
+    recharge_text = models.CharField(max_length=20, blank=True)
+    usage = models.ForeignKey(PowerUsage, blank=True, null=True)
     description = models.TextField(blank=True)
 
     class Meta:
@@ -121,6 +121,32 @@ class NPCTypePower(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def pretty_action_line(self):
+        action_line_list = []
+
+        if self.action_type is not None:
+            action_line_list.append(self.action_type.name)
+
+        if self.usage is not None:
+            action_line_list.append(self.usage.name)
+
+        if self.recharge_text != '':
+            action_line_list.append(self.recharge_text)
+
+        if len(action_line_list) >= 1:
+            action_line = '; '.join(action_line_list)
+            action_line = "(%s)" % (action_line)
+        else:
+            action_line = ''
+
+        return action_line
+
+    def pretty_keywords(self):
+        if self.keywords.exists():
+            return ', '.join([kw.name for kw in self.keywords.all()])
+        else:
+            return ''
 
 
 class NPCTypeEquipment(models.Model):
@@ -165,7 +191,16 @@ class NPC(models.Model):
         return response
 
     def get_powers(self):
-        return {}
+        response = []
+        npc = NPC.objects.get_subclass(id=self.id)
+        if hasattr(npc, 'npc_type'):
+            for power in NPCTypePower.objects.filter(npc_type=npc.npc_type):
+                response.append({'name': power.name,
+                                'keywords': power.pretty_keywords(),
+                                'action_line': power.pretty_action_line(),
+                                'description': power.description})
+
+        return response
 
 
 class MonsterNPC(NPC):

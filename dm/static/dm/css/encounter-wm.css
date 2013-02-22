@@ -4,25 +4,25 @@ body {
 }
 #panel-1 {
 	float: left;
-	width: 376px;
+	width: 301px;
 	padding: 10px;
 }
 
 #panel-2 {
 	float: left;
-	width: 376px;
+	width: 401px;
 	padding: 10px;
 }
 
 #panel-3 {
 	float: left;
-	width: 376px;
+	width: 401px;
 	padding: 10px;
 }
 
 #panel-4 {
 	float: left;
-	width: 376px;
+	width: 401px;
 	padding: 10px;
 }
 
@@ -32,4 +32,8 @@ body {
 
 .pc-detail-body, .npc-detail-body {
 	margin-top: 10px;
+}
+
+.span2 {
+	width: 120px;
 }

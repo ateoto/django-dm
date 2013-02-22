@@ -10,11 +10,18 @@ NPC.prototype.get_npc = function() {
 			this_npc.name = data.name;
 			this_npc.hit_points = data.hit_points;
 			this_npc.max_hit_points = data.max_hit_points;
+			if (this_npc.max_hit_points > 1) {
+				this_npc.bloodied = Math.floor(this_npc.max_hit_points / 2);
+			}
 			this_npc.role = data.role;
 			this_npc.abilities = data.abilities;
 			this_npc.defenses = data.defenses;
+			this_npc.powers = data.powers;
 			this_npc.level = data.level;
-			this_npc.initiative = data.abilities.dex.modifier_half_level;
+			this_npc.speed = data.speed;
+			this_npc.initiative = data.initiative;
+			this_npc.perception = data.perception;
+			this_npc.xp_reward = data.xp_reward;
 			this_npc.update_ui();
 	}, "json");
 }
