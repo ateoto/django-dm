@@ -2,29 +2,6 @@ body {
 	margin: 0;
 	padding: 0;
 }
-#panel-1 {
-	float: left;
-	width: 301px;
-	padding: 10px;
-}
-
-#panel-2 {
-	float: left;
-	width: 401px;
-	padding: 10px;
-}
-
-#panel-3 {
-	float: left;
-	width: 401px;
-	padding: 10px;
-}
-
-#panel-4 {
-	float: left;
-	width: 401px;
-	padding: 10px;
-}
 
 .dead {
 	background-color: #ec9191 !important;
@@ -34,6 +11,37 @@ body {
 	margin-top: 10px;
 }
 
-.span2 {
-	width: 120px;
+.npc-card-body {
+	padding: 4px;
+	background-color: #e6e4cf;
 }
+.npc-card-line {
+	background-color: #c6c6af;
+}
+
+.npc-header {
+	padding: 4px;
+	background-color: #46532d;
+	color: white;
+}
+.npc-name-line {
+	font-size: 1.3em;
+}
+.npc-name {
+}
+.npc-level {}
+.npc-origin-lie {}
+.npc-origin {}
+.npc-xp-reward {}
+.npc-senses-line {}
+.npc-initiative {}
+.npc-senses {}
+.npc-health-line {}
+.npc-defense-line {}
+.npc-speed-line {}
+.npc-power {
+	padding-bottom: 3px;
+}
+#npc-detail-stats-abilities {}
+.npc-detail-ability-label {}
+.npc-detail-ability-check {}

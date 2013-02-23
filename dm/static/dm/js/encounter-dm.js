@@ -13,8 +13,8 @@ $(function() {
 	party.get_party();
 	encounter.get_encounter();
 	
-	var npc_source = $('#npc-template').html();
-	var npc_template = Handlebars.compile(npc_source);
+	var npc_card_source = $('#npc-card-template').html();
+	var npc_card_template = Handlebars.compile(npc_card_source);
 
 	$('.pc-character-overview').click(function() {
 		$('#pc-detail').hide();
@@ -132,7 +132,7 @@ $(function() {
 		$('#npc-detail-stats').hide();
 		var npcid = $(this).attr('npc-id');
 		var npc = encounter.get_npc_by_id(npcid);
-		$('#npc-detail-body-container').html(npc_template(npc));
+		$('#npc-card').html(npc_card_template(npc));
 
 		$('#npc-detail').attr('npc-id', npcid);
 		$('#npc-detail-name').text(npc.name);
