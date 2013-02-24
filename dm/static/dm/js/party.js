@@ -1,21 +1,18 @@
-function Party(resource_uri) {
-	this.resource_uri = resource_uri;
+function Party(resource_uris) {
+	this.resource_uris = resource_uris;
 	this.characters = [];
 }
 
 Party.prototype.get_party = function() {
 	console.log('Updating Party Data.');
 	var this_party = this;
-	$.get(this_party.resource_uri, '',
-		function(data) {
-			_.each(data.characters, function(element) {
-				var c = new Character(element);
-				this_party.characters.push(c);
-			});
-			_.each(this_party.characters, function(element){
-				element.get_character();
-			});
-	}, "json");	
+	_.each(this_party.resource_uris, function(resource_uri) {
+		var c = new Character(resource_uri);
+		this_party.characters.push(c);
+	});
+	_.each(this_party.characters, function(c) {
+		c.get_character();
+	});
 }
 
 Party.prototype.update_ui = function() {

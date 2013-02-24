@@ -61,39 +61,24 @@ class EncounterTemplate(models.Model):
         return self.name
 
 
-class Encounter(EncounterTemplate):
+class Encounter(models.Model):
+    template = models.ForeignKey(EncounterTemplate)
     party = models.ForeignKey(Party)
+    is_completed = models.BooleanField(default=False)
 
     class Meta:
         app_label = 'dm'
 
     def __unicode__(self):
-        return "%s instance for %s" % (self.name, self.party.name)
+        return "%s instance for %s" % (self.template.name, self.party.name)
 
-    def from_template(self, encounter_template):
-        self = encounter_template
-        self.pk = None
-        self.id = None
-        self.save()
-        self.npcs = encounter_template.npcs.all()
-        self.save()
+    def save(self, *args, **kwargs):
+        super(Encounter, self).save(*args, **kwargs)
+        for pc in self.party.characters.all():
+            ep, created = PCEncounterParticipant.objects.get_or_create(character=pc, encounter=self)
 
-    def initiative_order(self):
-        init_table = []
-        for ei in EncounterParticipant.objects.filter(encounter=self):
-            ei.participant = EncounterParticipant.objects.get_subclass(id=ei.participant.id)
-            if hasattr(ei.participant, 'character'):
-                participant_type = 'pc'
-            else:
-                participant_type = 'npc'
-
-            init_table.append({
-                        'initiative': ei.initiative,
-                        'type': participant_type,
-                        'id': ei.participant.id
-            })
-
-        return sorted(init_table, key=lambda k: k['initiative'])
+        for npc in self.template.npcs.all():
+            ep, created = NPCEncounterParticipant.objects.get_or_create(npc=npc, encounter=self)
 
 
 class EncounterParticipant(models.Model):
@@ -106,7 +91,7 @@ class EncounterParticipant(models.Model):
         app_label = 'dm'
 
     def __unicode__(self):
-        return EncounterParticipant.objects.get_subclass(id=self.id).__unicode__
+        return EncounterParticipant.objects.get_subclass(id=self.id).__unicode__()
 
 
 class PCEncounterParticipant(EncounterParticipant):
@@ -126,4 +111,5 @@ class NPCEncounterParticipant(EncounterParticipant):
         app_label = 'dm'
 
     def __unicode__(self):
-        return 'NPC Name Coming Soon'
+        npc = NPC.objects.get_subclass(id=self.npc.id)
+        return npc.npc_type.name

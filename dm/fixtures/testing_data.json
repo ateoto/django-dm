@@ -1,0 +1,1272 @@
+[
+{
+    "pk": 1, 
+    "model": "dm.npctype", 
+    "fields": {
+        "name": "Kobold Minion", 
+        "roles": [
+            5
+        ], 
+        "level": 1, 
+        "max_hit_points": 1, 
+        "race": 18, 
+        "alignment": 3, 
+        "xp_reward": 25, 
+        "vision": 3
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.npctype", 
+    "fields": {
+        "name": "Kobold Slinger", 
+        "roles": [
+            8
+        ], 
+        "level": 1, 
+        "max_hit_points": 24, 
+        "race": 18, 
+        "alignment": 3, 
+        "xp_reward": 100, 
+        "vision": 3
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.npctype", 
+    "fields": {
+        "name": "Kobold Dragonshield", 
+        "roles": [
+            7
+        ], 
+        "level": 2, 
+        "max_hit_points": 36, 
+        "race": 18, 
+        "alignment": 3, 
+        "xp_reward": 125, 
+        "vision": 3
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.npctype", 
+    "fields": {
+        "name": "Kobold Skirmisher", 
+        "roles": [], 
+        "level": 1, 
+        "max_hit_points": 27, 
+        "race": 18, 
+        "alignment": 3, 
+        "xp_reward": 100, 
+        "vision": 3
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.npctype", 
+    "fields": {
+        "name": "Kobold Wyrmpriest", 
+        "roles": [
+            3, 
+            8
+        ], 
+        "level": 3, 
+        "max_hit_points": 36, 
+        "race": 18, 
+        "alignment": 3, 
+        "xp_reward": 150, 
+        "vision": 3
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 1, 
+        "value": 8
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 2, 
+        "value": 12
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 3, 
+        "value": 16
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 4, 
+        "value": 9
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 5, 
+        "value": 12
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 1, 
+        "ability": 6, 
+        "value": 10
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 1, 
+        "value": 9
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 2, 
+        "value": 12
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 3, 
+        "value": 17
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 4, 
+        "value": 9
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 5, 
+        "value": 12
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 2, 
+        "ability": 6, 
+        "value": 10
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 1, 
+        "value": 14
+    }
+},
+{
+    "pk": 14, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 2, 
+        "value": 12
+    }
+},
+{
+    "pk": 15, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 3, 
+        "value": 13
+    }
+},
+{
+    "pk": 16, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 4, 
+        "value": 9
+    }
+},
+{
+    "pk": 17, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 5, 
+        "value": 12
+    }
+},
+{
+    "pk": 18, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 3, 
+        "ability": 6, 
+        "value": 10
+    }
+},
+{
+    "pk": 19, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 1, 
+        "value": 8
+    }
+},
+{
+    "pk": 20, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 2, 
+        "value": 11
+    }
+},
+{
+    "pk": 21, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 3, 
+        "value": 16
+    }
+},
+{
+    "pk": 22, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 4, 
+        "value": 6
+    }
+},
+{
+    "pk": 23, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 5, 
+        "value": 10
+    }
+},
+{
+    "pk": 24, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 4, 
+        "ability": 6, 
+        "value": 15
+    }
+},
+{
+    "pk": 25, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 1, 
+        "value": 9
+    }
+},
+{
+    "pk": 26, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 2, 
+        "value": 12
+    }
+},
+{
+    "pk": 27, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 3, 
+        "value": 16
+    }
+},
+{
+    "pk": 28, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 4, 
+        "value": 9
+    }
+},
+{
+    "pk": 29, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 4, 
+        "value": 9
+    }
+},
+{
+    "pk": 30, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 5, 
+        "value": 17
+    }
+},
+{
+    "pk": 31, 
+    "model": "dm.npctypeability", 
+    "fields": {
+        "npc_type": 5, 
+        "ability": 6, 
+        "value": 12
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 1, 
+        "defense": 1, 
+        "value": 15
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 1, 
+        "defense": 2, 
+        "value": 11
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 1, 
+        "defense": 3, 
+        "value": 13
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 1, 
+        "defense": 4, 
+        "value": 11
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 2, 
+        "defense": 1, 
+        "value": 13
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 2, 
+        "defense": 2, 
+        "value": 12
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 2, 
+        "defense": 3, 
+        "value": 14
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 2, 
+        "defense": 4, 
+        "value": 12
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 3, 
+        "defense": 1, 
+        "value": 18
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 3, 
+        "defense": 2, 
+        "value": 14
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 3, 
+        "defense": 3, 
+        "value": 13
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 3, 
+        "defense": 4, 
+        "value": 13
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 4, 
+        "defense": 1, 
+        "value": 15
+    }
+},
+{
+    "pk": 14, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 4, 
+        "defense": 2, 
+        "value": 11
+    }
+},
+{
+    "pk": 15, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 4, 
+        "defense": 3, 
+        "value": 14
+    }
+},
+{
+    "pk": 16, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 4, 
+        "defense": 4, 
+        "value": 13
+    }
+},
+{
+    "pk": 17, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 5, 
+        "defense": 1, 
+        "value": 17
+    }
+},
+{
+    "pk": 18, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 5, 
+        "defense": 2, 
+        "value": 13
+    }
+},
+{
+    "pk": 19, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 5, 
+        "defense": 3, 
+        "value": 15
+    }
+},
+{
+    "pk": 20, 
+    "model": "dm.npctypedefense", 
+    "fields": {
+        "npc_type": 5, 
+        "defense": 4, 
+        "value": 15
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.npctypepower", 
+    "fields": {
+        "attack_type": 5, 
+        "name": "Javelin", 
+        "npc_type": 1, 
+        "keywords": [
+            10
+        ], 
+        "recharge_text": "", 
+        "action_type": 1, 
+        "usage": 2, 
+        "description": "+5 vs. AC; 4 damage."
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.npctypepower", 
+    "fields": {
+        "attack_type": 1, 
+        "name": "Javelin", 
+        "npc_type": 1, 
+        "keywords": [
+            10
+        ], 
+        "recharge_text": "", 
+        "action_type": 1, 
+        "usage": 2, 
+        "description": "Ranged 10/20; +5 vs. AC; 4 damage."
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.npctypepower", 
+    "fields": {
+        "attack_type": null, 
+        "name": "Shifty", 
+        "npc_type": 1, 
+        "keywords": [], 
+        "recharge_text": "", 
+        "action_type": 3, 
+        "usage": 2, 
+        "description": "The kobold shifts 1 square."
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.npctypepower", 
+    "fields": {
+        "attack_type": null, 
+        "name": "Trap Sense", 
+        "npc_type": 1, 
+        "keywords": [], 
+        "recharge_text": "", 
+        "action_type": null, 
+        "usage": null, 
+        "description": "The Kobold gains a +2 bonus to all defenses against traps."
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.npc", 
+    "fields": {
+        "is_alive": true, 
+        "conditions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 1, 
+        "hit_points": 1, 
+        "conditions": []
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 1, 
+        "hit_points": 1, 
+        "conditions": []
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 1, 
+        "hit_points": 1, 
+        "conditions": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 1, 
+        "hit_points": 1, 
+        "conditions": []
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 1, 
+        "hit_points": 1, 
+        "conditions": []
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 2, 
+        "hit_points": 24, 
+        "conditions": []
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 3, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 3, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 3, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 3, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 3, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 4, 
+        "hit_points": 27, 
+        "conditions": []
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.monsternpc", 
+    "fields": {
+        "npc_type": 5, 
+        "hit_points": 36, 
+        "conditions": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.party", 
+    "fields": {
+        "characters": [
+            3, 
+            6, 
+            7, 
+            8, 
+            9
+        ], 
+        "formed_on": "2013-01-20", 
+        "name": "The Servants of Downton Stabby", 
+        "background": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.campaign", 
+    "fields": {
+        "party": 1, 
+        "dm": 1, 
+        "title": "Keep on the Shadowfell"
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.session", 
+    "fields": {
+        "start_time": "2013-01-21T01:00:00Z", 
+        "end_time": "2013-01-21T06:30:00Z", 
+        "campaign": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.encountertemplate", 
+    "fields": {
+        "npcs": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5, 
+            6, 
+            7, 
+            8
+        ], 
+        "name": "On the road: Kobold brigands"
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.encountertemplate", 
+    "fields": {
+        "npcs": [
+            9, 
+            10, 
+            11, 
+            12, 
+            13
+        ], 
+        "name": "A1: Kobold Ambush"
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.encounter", 
+    "fields": {
+        "party": 1, 
+        "is_completed": true, 
+        "template": 3
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.encounter", 
+    "fields": {
+        "party": 1, 
+        "is_completed": false, 
+        "template": 6
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 1
+    }
+},
+{
+    "pk": 14, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 15, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 16, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 17, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 18, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 19, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 20, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 21, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 22, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 23, 
+    "model": "dm.encounterparticipant", 
+    "fields": {
+        "symbol": "", 
+        "initiative": 0, 
+        "encounter": 2
+    }
+},
+{
+    "pk": 1, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 3
+    }
+},
+{
+    "pk": 2, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 6
+    }
+},
+{
+    "pk": 3, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 7
+    }
+},
+{
+    "pk": 4, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 8
+    }
+},
+{
+    "pk": 5, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 9
+    }
+},
+{
+    "pk": 14, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 3
+    }
+},
+{
+    "pk": 15, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 6
+    }
+},
+{
+    "pk": 16, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 7
+    }
+},
+{
+    "pk": 17, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 8
+    }
+},
+{
+    "pk": 18, 
+    "model": "dm.pcencounterparticipant", 
+    "fields": {
+        "character": 9
+    }
+},
+{
+    "pk": 6, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 1
+    }
+},
+{
+    "pk": 7, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 2
+    }
+},
+{
+    "pk": 8, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 3
+    }
+},
+{
+    "pk": 9, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 4
+    }
+},
+{
+    "pk": 10, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 5
+    }
+},
+{
+    "pk": 11, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 6
+    }
+},
+{
+    "pk": 12, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 7
+    }
+},
+{
+    "pk": 13, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 8
+    }
+},
+{
+    "pk": 19, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 9
+    }
+},
+{
+    "pk": 20, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 10
+    }
+},
+{
+    "pk": 21, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 11
+    }
+},
+{
+    "pk": 22, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 12
+    }
+},
+{
+    "pk": 23, 
+    "model": "dm.npcencounterparticipant", 
+    "fields": {
+        "npc": 13
+    }
+}
+]
