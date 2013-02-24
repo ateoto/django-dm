@@ -39,6 +39,7 @@ Character.prototype.set_character = function() {
 	});
 }
 
+
 Character.prototype.update_ui = function() {
 	console.log('Update ui for ' + this.id);
 	var hp_percentage = ((this.hit_points / this.max_hit_points) * 100);

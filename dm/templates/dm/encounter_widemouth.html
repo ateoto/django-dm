@@ -10,6 +10,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script src="{% static "dm/js/handlebars-1.0.rc.1.min.js" %}"></script>
         <script src="{% static "dm/js/encounter.js" %}"></script>
+        <script src="{% static "dm/js/npcgroup.js" %}"></script>
         <script src="{% static "dm/js/npc.js" %}"></script>
         <script src="{% static "dm/js/party.js" %}"></script>
         <script src="{% static "dm/js/character.js" %}"></script>
@@ -70,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for npc in encounter.npcs.all.select_subclasses %}
+                {% for npc in encounter.template.npcs.all.select_subclasses %}
                 <tr id="npc-{{ npc.id }}" class="npc-overview" npc-id="{{ npc.id }}">
                     <td id="npc-init-{{ npc.id }}"> {{ npc.get_abilities.dex.modifier_half_level }}</td>
                     <td id="npc-symbol-{{ npc.id }}"></td>

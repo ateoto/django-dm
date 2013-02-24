@@ -1,0 +1,20 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "fake", 
+        "first_name": "Fake", 
+        "last_name": "User", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2013-02-17T23:34:14.721Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "notreal", 
+        "email": "fakeuser@example.com", 
+        "date_joined": "2012-12-30T03:24:38Z"
+    }
+}
+]
