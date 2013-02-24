@@ -78,19 +78,36 @@ class NPCResource(ModelResource):
 
 
 class EncounterResource(ModelResource):
-    npcs = fields.ToManyField(NPCResource, 'npcs')
-    party = fields.ForeignKey(PartyResource, 'party')
-
     class Meta:
         queryset = Encounter.objects.all()
         resource_name = 'encounter'
 
     def dehydrate(self, bundle):
-        bundle.data['initiative_table'] = {}  # bundle.obj.initiative_order()
+        # TODO: Reverse URI possible?
+        bundle.data['npcs'] = ['/dm/api/v1/npc/%i/' % (npc.id) for npc in bundle.obj.template.npcs.all()]
+        bundle.data['pcs'] = ['/DnD/api/v1/character/%i/' % (pc.id) for pc in bundle.obj.party.characters.all()]
 
         return bundle
 
 
 class EncounterParticipantResource(ModelResource):
+    encounter = fields.ForeignKey(EncounterResource, 'encounter')
+
     class Meta:
-        queryset = EncounterParticipant.objects.all()
+        queryset = EncounterParticipant.objects.all().select_subclasses()
+        filtering = {
+            'encounter': ('exact')
+        }
+        resource_name = 'encounter_participant'
+        authentication = SessionAuthentication()
+        authorization = DjangoAuthorization()
+
+    def dehydrate(self, bundle):
+        if hasattr(bundle.obj, 'character'):
+            bundle.data['pc_id'] = bundle.obj.character.id
+            bundle.data['is_pc'] = True
+        if hasattr(bundle.obj, 'npc'):
+            bundle.data['npc_id'] = bundle.obj.npc.id
+            bundle.data['is_pc'] = False
+
+        return bundle
