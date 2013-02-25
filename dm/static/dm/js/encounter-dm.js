@@ -131,6 +131,7 @@ $(function() {
 
 	$('.npc-overview').click(function() {
 		$('#npc-detail').hide();
+		$('#overview').hide();
 		$('#npc-detail-stats').hide();
 		var npcid = $(this).attr('npc-id');
 		var npc = encounter.npcgroup.get_npc_by_id(npcid);
@@ -241,5 +242,14 @@ $(function() {
 		if (ev.which === 13) {
 			$('#npc-symbol-btn').click();
 		}
+	});
+
+	$('#side-nav').click(function() {
+		return false;
+	});
+
+	$('#encounter-overview-nav').click(function() {
+		$('#overview').show();
+		$('#npc-detail').hide();
 	});
 });

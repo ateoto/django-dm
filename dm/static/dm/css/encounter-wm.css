@@ -2,7 +2,9 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
+#encounter-container {
+	margin-top: 20px;
+}
 .dead {
 	background-color: #ec9191 !important;
 }
