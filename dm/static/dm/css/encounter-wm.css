@@ -2,6 +2,12 @@ body {
 	margin: 0;
 	padding: 0;
 }
+#encounter-container {
+	margin-top: 20px;
+}
+#encounter-notes {
+	resize: none;
+}
 
 .dead {
 	background-color: #ec9191 !important;
@@ -45,3 +51,17 @@ body {
 #npc-detail-stats-abilities {}
 .npc-detail-ability-label {}
 .npc-detail-ability-check {}
+
+
+.party-dm-character-block {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 5px;
+	padding: 4px;
+	background-color: #e6e6e6;
+
+}
+.dm-block-selection {
+	background-color: #5dbfdc;
+}

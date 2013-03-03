@@ -81,11 +81,15 @@ class EncounterResource(ModelResource):
     class Meta:
         queryset = Encounter.objects.all()
         resource_name = 'encounter'
+        authentication = SessionAuthentication()
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         # TODO: Reverse URI possible?
         bundle.data['npcs'] = ['/dm/api/v1/npc/%i/' % (npc.id) for npc in bundle.obj.template.npcs.all()]
         bundle.data['pcs'] = ['/DnD/api/v1/character/%i/' % (pc.id) for pc in bundle.obj.party.characters.all()]
+        bundle.data['setup'] = bundle.obj.template.setup
+        bundle.data['tactics'] = bundle.obj.template.tactics
 
         return bundle
 

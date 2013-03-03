@@ -7,7 +7,7 @@
 
 {% block js %}
 {{ block.super }}
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="{% static "dm/js/underscore-min.js" %}"></script>
         <script src="{% static "dm/js/handlebars-1.0.rc.1.min.js" %}"></script>
         <script src="{% static "dm/js/encounter.js" %}"></script>
         <script src="{% static "dm/js/npcgroup.js" %}"></script>
@@ -18,84 +18,141 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-  <div class="row-fluid">
-    <ul class="nav nav-list well span1">
-        <li class="nav-header">Encounter</li>
-        <li class="active"><a href="#">Overview</a></li>
-        <li><a href="#">History</a></li>
-        <li><a href="#">DM</a></li>
-        <li class="nav-header">PC</li>
-        <li><a href="#">Detail</a></li>
-        <li><a href="#">Attack</a></li>
-        <li><a href="#">DM</a></li>
-        <li class="nav-header">NPC</li>
-        <li><a href="#">Detail</a></li>
-        <li><a href="#">Attack</a></li>
-        <li><a href="#">DM</a></li>
-    </ul>
-    <div class="span11">
-<div id="encounter" encounter-id="{{ encounter.id }}">
-    <div id="overview">
-        <h3>{{ party.name }}</h3>
-        <table id="pc-overview" class="table table-striped table-bordered table-condensed table-hover" party-id="{{ party.id }}">
-            <thead>
-                <tr>
-                    <th>Initiative</th>
-                    <th>Name</th>
-                    <th>Health</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for c in party.characters.all %}
-                <tr id="pc-{{ c.id }}" class="pc-character-overview" pc-id="{{ c.id }}">
-                    <td id="pc-init-{{ c.id }}">{{ c.get_abilities.dex.modifier_half_level }}</td>
-                    <td id="pc-name-{{ c.id }}">{{ c.name }}</td>
-                    <td id="pc-health-{{ c.id }}">
-                        <span id="hp-text-{{ c.id }}">{{ c.hit_points }}</span>
-                        /
-                        <span id="max-hp-text-{{ c.id }}">{{ c.max_hit_points }}</span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <h3>NPCs</h3>
-        <table id="npc-overview" class="table table-striped table-bordered table-condensed table-hover" encounter-id="{{ encounter.id }}">
-            <thead>
-                <tr>
-                    <th>Initiative</th>
-                    <th>Symbol</th>
-                    <th>Name</th>
-                    <th>Health</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for npc in encounter.template.npcs.all.select_subclasses %}
-                <tr id="npc-{{ npc.id }}" class="npc-overview" npc-id="{{ npc.id }}">
-                    <td id="npc-init-{{ npc.id }}"> {{ npc.get_abilities.dex.modifier_half_level }}</td>
-                    <td id="npc-symbol-{{ npc.id }}"></td>
-                    <td id="npc-name-{{ npc.id }}">{{ npc.npc_type.name }}</td>
-                    <td id="npc-health-{{ npc.id }}">
-                        <span id="npc-hp-text-{{ npc.id }}">{{ npc.hit_points }}</span>
-                        /
-                        <span id="npc-max-hp-text-{{ npc.id }}">{{ npc.npc_type.max_hit_points }}</span>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div id="encounter-container" class="container-fluid">
+    <div class="row-fluid">
+        <ul id="side-nav" class="nav nav-list well span1">
+            <li class="nav-header">Encounter</li>
+            <li id="encounter-overview-nav" class="active"><a href="#">Overview</a></li>
+            <li id="encounter-history-nav"><a href="#">History</a></li>
+            <li><a href="#">DM</a></li>
+            <li class="nav-header">PC</li>
+            <li id="pc-detail-nav"><a href="#">Detail</a></li>
+            <li id="pc-attack-nav"><a href="#">Attack</a></li>
+            <li id="pc-dm-nav"><a href="#">DM</a></li>
+            <li class="nav-header">NPC</li>
+            <li id="npc-detail-nav"><a href="#">Detail</a></li>
+            <li id="npc-attack-nav"><a href="#">Attack</a></li>
+            <li id="npc-dm-nav"><a href="#">DM</a></li>
+        </ul>
+        <div class="span11">
+            <div id="encounter" encounter-id="{{ encounter.id }}">
+                <div id="overview" class="row-fluid">
+                    <div id="participants" class="span4">
+                        <h3>{{ party.name }}</h3>
+                        <table id="pc-overview" class="table table-striped table-bordered table-condensed table-hover" party-id="{{ party.id }}">
+                            <thead>
+                                <tr>
+                                    <th>Initiative</th>
+                                    <th>Name</th>
+                                    <th>Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in party.characters.all %}
+                                <tr id="pc-{{ c.id }}" class="pc-character-overview" pc-id="{{ c.id }}">
+                                    <td id="pc-init-{{ c.id }}">{{ c.get_abilities.dex.modifier_half_level }}</td>
+                                    <td id="pc-name-{{ c.id }}">{{ c.name }}</td>
+                                    <td id="pc-health-{{ c.id }}">
+                                        <span id="hp-text-{{ c.id }}">{{ c.hit_points }}</span>
+                                        /
+                                        <span id="max-hp-text-{{ c.id }}">{{ c.max_hit_points }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <h3>NPCs</h3>
+                        <table id="npc-overview" class="table table-striped table-bordered table-condensed table-hover" encounter-id="{{ encounter.id }}">
+                            <thead>
+                                <tr>
+                                    <th>Initiative</th>
+                                    <th>Symbol</th>
+                                    <th>Name</th>
+                                    <th>Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for npc in encounter.template.npcs.all.select_subclasses %}
+                                <tr id="npc-{{ npc.id }}" class="npc-overview" npc-id="{{ npc.id }}">
+                                    <td id="npc-init-{{ npc.id }}"> {{ npc.get_abilities.dex.modifier_half_level }}</td>
+                                    <td id="npc-symbol-{{ npc.id }}"></td>
+                                    <td id="npc-name-{{ npc.id }}">{{ npc.npc_type.name }}</td>
+                                    <td id="npc-health-{{ npc.id }}">
+                                        <span id="npc-hp-text-{{ npc.id }}">{{ npc.hit_points }}</span>
+                                        /
+                                        <span id="npc-max-hp-text-{{ npc.id }}">{{ npc.npc_type.max_hit_points }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="notes" class="span3">
+                        <h3>Notes</h3>
+                        <textarea id="encounter-notes" class="input-block-level span12">{{ encounter.notes }}</textarea>
+                    </div>
+                    <div id="pre-notes" class="span4">
+                        <h3>Setup</h3>
+                        <p>
+                            {{ encounter.template.setup }}
+                        </p>
+                        <h3>Tactics</h3>
+                        <p>
+                            {{ encounter.template.tactics }}
+                        </p>
+                    </div>
+                </div>
+                <div id="npc-detail">
+                    <div id="npc-card" class="span3">
+                    </div>
+                    <div id="npc-dm" class="span7 offset1"></div>
+                </div>
+                <div id="encounter-dm" class="row-fluid">
+
+                </div>
+                <div id="pc-party-dm" class="row-fluid">
+                    <div id="party-detail-view" class="span7">
+                        {% for c in party.characters.all %}
+                            <div id="party-dm-{{ c.id }}" class="party-dm-character-block" character-id="{{ c.id }}">
+                            {{ c.name }} <br>
+                            {{ c.hit_points }} / {{ c.max_hit_points }} ({{ c.hp_percentage }})<br>
+                            {{ c.xp }} / {{ c.next_level.xp_required }} ({{ c.next_level_percentage }})<br>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div id="party-dm-controls" class="span4">
+                        <div class="input-append">
+                            <input class="span4" id="pc-party-damage" type="text" placeholder="Damage">
+                            <button id="pc-party-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                        </div>
+                        <div class="input-append">
+                            <input class="span4" id="pc-party-heal" type="text" placeholder="Heal">
+                            <button id="pc-party-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                        </div>
+                        <div class="input-append">
+                            <input class="span4" id="pc-party-xp" type="text" placeholder="XP">
+                            <button class="btn" id="pc-party-xp-btn" type="button" tabindex="-1">Give XP</button>
+                        </div>
+                        <div class="input-append">
+                            <input class="span4" id="pc-party-money" type="text" placeholder="Copper">
+                            <button class="btn" id="pc-party-money-btn" type="button" tabindex="-1">Give Money</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-    </div>
-  </div>
-</div>
-
-
-
 
 {% verbatim %}
 <script id="pc-template" type="text/x-handlebars-template">
+    {{#each characters }}
+    <div id="party-dm-{{ id }}" class="party-dm-character-block" character-id="{{ id }}">
+    {{ name }} <br>
+    {{ hit_points }} / {{ max_hit_points }} ({{ hp_percentage }})<br>
+    {{ xp }} / {{ next_level_xp_needed }} ({{ next_level_percentage }})<br>
+    </div>
+    {{/each}}
 </script>
 
 <script id="npc-card-template" type="text/x-handlebars-template">
@@ -136,36 +193,39 @@
         </div>
         {{/each}}
         <div id="npc-detail-stats-abilities" class="npc-card-line">
-            <div class="row">
-                <div id="npc-detail-str" class="span2">
+            <div class="row-fluid">
+                <div id="npc-detail-str" class="span4">
                     <span class="npc-detail-ability-label"><strong>Str</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.str.score }} ({{ abilities.str.check }})</span> 
                 </div>
-                <div id="npc-detail-dex" class="span2">
+                <div id="npc-detail-dex" class="span4">
                     <span class="npc-detail-ability-label"><strong>Dex</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.dex.score }} ({{ abilities.dex.check }})</span> 
                 </div>
-                <div id="npc-detail-wis" class="span2">
+                <div id="npc-detail-wis" class="span4">
                     <span class="npc-detail-ability-label"><strong>Wis</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.wis.score }} ({{ abilities.wis.check }})</span> 
                 </div>
             </div>
-            <div class="row">
-                <div id="npc-detail-con" class="span2">
+            <div class="row-fluid">
+                <div id="npc-detail-con" class="span4">
                     <span class="npc-detail-ability-label"><strong>Con</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.con.score }} ({{ abilities.con.check }})</span> 
                 </div>
-                <div id="npc-detail-int" class="span2">
+                <div id="npc-detail-int" class="span4">
                     <span class="npc-detail-ability-label"><strong>Int</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.int.score }} ({{ abilities.int.check }})</span> 
                 </div>
-                <div id="npc-detail-cha" class="span2">
+                <div id="npc-detail-cha" class="span4">
                     <span class="npc-detail-ability-label"><strong>Cha</strong> </span>
                     <span class="npc-detail-ability-check">{{ abilities.cha.score }} ({{ abilities.cha.check }})</span> 
                 </div>
             </div>
         </div>
     </div>
+</script>
+
+<script id="npc-detail-template">
 </script>
 {% endverbatim %}
 {% csrf_token %}

@@ -866,6 +866,8 @@
             7, 
             8
         ], 
+        "setup": "", 
+        "tactics": "", 
         "name": "On the road: Kobold brigands"
     }
 },
@@ -880,6 +882,8 @@
             12, 
             13
         ], 
+        "setup": "", 
+        "tactics": "", 
         "name": "A1: Kobold Ambush"
     }
 },
@@ -889,6 +893,7 @@
     "fields": {
         "party": 1, 
         "is_completed": true, 
+        "notes": "These should get saved. Right on.", 
         "template": 3
     }
 },
@@ -898,6 +903,7 @@
     "fields": {
         "party": 1, 
         "is_completed": false, 
+        "notes": "", 
         "template": 6
     }
 },
@@ -951,7 +957,7 @@
     "model": "dm.encounterparticipant", 
     "fields": {
         "symbol": "", 
-        "initiative": 0, 
+        "initiative": 3, 
         "encounter": 1
     }
 },
