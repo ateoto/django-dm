@@ -9,6 +9,10 @@ Character.prototype.get_character = function() {
 			this_character.name = data.name;
 			this_character.hit_points = data.hit_points;
 			this_character.max_hit_points = data.max_hit_points;
+			this_character.hp_percentage = data.hp_percentage;
+			this_character.xp = data.xp;
+			this_character.next_level_xp_needed = data.next_level_xp_needed;
+			this_character.next_level_percentage = data.next_level_percentage;
 			this_character.id = data.id;
 			this_character.level = data.level;
 			this_character.race = data.race.name;
@@ -38,7 +42,6 @@ Character.prototype.set_character = function() {
         },
 	});
 }
-
 
 Character.prototype.update_ui = function() {
 	console.log('Update ui for ' + this.id);

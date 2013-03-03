@@ -5,13 +5,14 @@
         <meta charset="utf-8" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         {% block css %}
-        <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
-        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.0.0/css/font-awesome.min.css" rel="stylesheet">
+                <script src="{% static "dm/js/encounter-dm.js" %}"></script>
+        <link href="{% static "dm/css/bootstrap.min.css" %}" rel="stylesheet">
+        <link href="{% static "dm/css/font-awesome.min.css" %}" rel="stylesheet">
         {% endblock css %}
         {% block js %}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="{% static "dm/js/jquery-1.9.1.min.js" %}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+        <script src="{% static "dm/js/bootstrap.min.js" %}"></script>
         {% endblock js%}
         <title>{% block title %}DnD 4e Dungeon Master{% endblock %}</title>
     </head>

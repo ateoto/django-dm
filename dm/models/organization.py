@@ -53,6 +53,8 @@ class HistoryLine(models.Model):
 class EncounterTemplate(models.Model):
     name = models.CharField(max_length=100)
     npcs = models.ManyToManyField(NPC)
+    setup = models.TextField(blank=True)
+    tactics = models.TextField(blank=True)
 
     class Meta:
         app_label = 'dm'
@@ -65,6 +67,7 @@ class Encounter(models.Model):
     template = models.ForeignKey(EncounterTemplate)
     party = models.ForeignKey(Party)
     is_completed = models.BooleanField(default=False)
+    notes = models.TextField(blank=True)
 
     class Meta:
         app_label = 'dm'
