@@ -81,6 +81,8 @@ class EncounterResource(ModelResource):
     class Meta:
         queryset = Encounter.objects.all()
         resource_name = 'encounter'
+        authentication = SessionAuthentication()
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         # TODO: Reverse URI possible?

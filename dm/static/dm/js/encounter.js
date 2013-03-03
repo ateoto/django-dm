@@ -14,6 +14,7 @@ Encounter.prototype.get_encounter = function() {
 			this_encounter.id = data.id;
 			this_encounter.party = new Party(data.pcs);
 			this_encounter.npcgroup = new NPCGroup(data.npcs);
+			this_encounter.notes = data.notes;
 	}, "json")
 	.done(function() {
 		var encounter_id = this_encounter.id;
@@ -45,6 +46,22 @@ Encounter.prototype.save_participant = function(participant) {
 		type: 'PATCH',
 		contentType: 'application/json',
 		data: JSON.stringify(participant),
+		dataType: 'json',
+		processData: false,
+        beforeSend: function(jqXHR, settings) {
+        	jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
+        },
+	});
+}
+
+Encounter.prototype.save_notes = function() {
+	var resource_uri = this.resource_uri;
+	var notes = this.notes;
+	$.ajax({
+		url: resource_uri,
+		type: 'PATCH',
+		contentType: 'application/json',
+		data: JSON.stringify({'notes': notes}),
 		dataType: 'json',
 		processData: false,
         beforeSend: function(jqXHR, settings) {

@@ -4,8 +4,12 @@ $(function() {
 
 	//$('#detail').affix({ offset: {x: 400, y : 30}});
 
+	$('#encounter-dm').hide();
+	$('#pc-party-dm').hide();
 	$('#npc-detail-stats').hide();
 	$('#npc-detail-dm').hide();
+
+	$('#encounter-notes').css({'height':($("#encounter").height() + "px")});
 
 	encounter = new Encounter('/dm/api/v1/encounter/' + $('#encounter').attr('encounter-id') + '/');
 
@@ -13,6 +17,9 @@ $(function() {
 		encounter.party.get_party();
 		encounter.npcgroup.get_npcgroup();
 	});
+
+	var pc_party_card_source = $('#pc-template').html();
+	var pc_party_card_template = Handlebars.compile(pc_party_card_source);
 
 	var npc_card_source = $('#npc-card-template').html();
 	var npc_card_template = Handlebars.compile(npc_card_source);
@@ -251,5 +258,95 @@ $(function() {
 	$('#encounter-overview-nav').click(function() {
 		$('#overview').show();
 		$('#npc-detail').hide();
+		$('#pc-party-dm').hide();
+	});
+
+	$('#pc-dm-nav').click(function() {
+		$('#overview').hide();
+		$('#pc-party-dm').show();
+	})
+
+	$('#encounter-notes').focusout(function() {
+		encounter.notes = $('#encounter-notes').val();
+		encounter.save_notes();
+	});
+
+	$(document).on('click', '.party-dm-character-block', function() {
+		$(this).toggleClass('dm-block-selection');
+	});
+
+	/*************** Party DM Controls *************/
+
+	$('#pc-party-damage-btn').click(function() {
+		var damage = $('#pc-party-damage').val();
+		if ($.isNumeric(damage)) {
+			damage = parseInt(damage, 10);
+			_.each($('#party-detail-view .dm-block-selection'), function(p) {
+				pcid = $(p).attr('character-id');
+				var character = encounter.party.get_character_by_id(pcid);
+				character.hit_points -= damage;
+				character.set_character();
+			});
+		}
+		$('#party-detail-view').html(pc_party_card_template(encounter.party));
+		$('#pc-party-damage').val('');
+	});
+
+	$('#pc-party-damage').keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-party-damage-btn').click();
+		}
+	});
+
+	$('#pc-party-heal-btn').click(function() {
+		var heal = $('#pc-party-heal').val();
+		if ($.isNumeric(heal)) {
+			heal = parseInt(heal, 10);
+			_.each($('#party-detail-view .dm-block-selection'), function(p) {
+				pcid = $(p).attr('character-id');
+				var character = encounter.party.get_character_by_id(pcid);
+				character.hit_points += heal;
+				character.set_character();
+			});
+		}
+		$('#party-detail-view').html(pc_party_card_template(encounter.party));
+		$('#pc-party-heal').val('');
+	});
+
+	$('#pc-party-heal').keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-party-heal-btn').click();
+		}
+	});
+
+	$('#pc-party-xp-btn').click(function() {
+		var xp = $('#pc-party-xp').val();
+		if ($.isNumeric(xp)) {
+			xp = parseInt(xp, 10);
+			_.each($('#party-detail-view .dm-block-selection'), function(p) {
+				pcid = $(p).attr('character-id');
+				var character = encounter.party.get_character_by_id(pcid);
+				character.xp += xp;
+				character.set_character();
+			});
+		}
+		$('#party-detail-view').html(pc_party_card_template(encounter.party));
+		$('#pc-party-xp').val('');
+	});
+
+	$('#pc-party-xp').keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-party-xp-btn').click();
+		}
+	});
+
+	$('#pc-party-money-btn').click(function() {
+		console.log('FUCK YEA');
+	});
+
+	$('#pc-party-money').keyup(function(ev) {
+ 		if (ev.which === 13) {
+			$('#pc-party-money-btn').click();
+		}
 	});
 });
