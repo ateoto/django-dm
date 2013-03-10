@@ -93,13 +93,13 @@
                     </div>
                     <div id="pre-notes" class="span4">
                         <h3>Setup</h3>
-                        <p>
-                            {{ encounter.template.setup }}
-                        </p>
+                        <div id="setup-text">
+                            {{ encounter.template.setup|safe }}
+                        </div>
                         <h3>Tactics</h3>
-                        <p>
-                            {{ encounter.template.tactics }}
-                        </p>
+                        <div id="tactics-text">
+                            {{ encounter.template.tactics|safe }}
+                        </div>
                     </div>
                 </div>
                 <div id="npc-detail">
