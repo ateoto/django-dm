@@ -32,7 +32,7 @@ Character.prototype.set_character = function() {
 		type: 'PATCH',
 		contentType: 'application/json',
 		data: JSON.stringify({ "hit_points": this_character.hit_points,
-								"xp": this_character.xp }),
+								"xp": this_character.xp ex}),
 		dataType: 'json',
 		processData: false,
         beforeSend: function(jqXHR, settings) {
