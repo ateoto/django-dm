@@ -105,7 +105,26 @@
                 <div id="npc-detail">
                     <div id="npc-card" class="span3">
                     </div>
-                    <div id="npc-dm" class="span7 offset1"></div>
+                    <div id="npc-dm" class="span7 offset1">
+                        <div id="npc-dm-controls" class="span4">
+                            <div class="input-append">
+                                <input class="span4" id="npc-detail-damage" type="text" placeholder="Damage">
+                                <button id="npc-detail-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                            </div>
+                            <div class="input-append">
+                                <input class="span4" id="npc-detail-heal" type="text" placeholder="Heal">
+                                <button id="npc-detail-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                            </div>
+                            <div class="input-append">
+                                <input class="span4" id="npc-detail-init" type="text" placeholder="Init">
+                                <button id="npc-detail-init-btn" class="btn" type="button" tabindex="-1">Set Init</button>
+                            </div>
+                            <div class="input-append">
+                                <input class="span4" id="npc-detail-symbol" type="text" placeholder="Symbol">
+                                <button id="npc-detail-symbol-btn" class="btn" type="button" tabindex="-1">Set Symbol</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="encounter-dm" class="row-fluid">
 
@@ -226,6 +245,9 @@
 </script>
 
 <script id="npc-detail-template">
+    
+
+
 </script>
 {% endverbatim %}
 {% csrf_token %}
