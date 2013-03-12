@@ -219,6 +219,8 @@ $(function() {
         var npcid = $('#npc-detail').attr('npc-id');
         var symbol = $('#npc-detail-symbol').val();
         $('#npc-detail-symbol-' + npcid).text(symbol);
+        encounter.participant_table.npcs[npcid].symbol = symbol;
+        encounter.save_participant(encounter.participant_table.npcs[npcid]);
         $('#npc-detail-symbol').val('');
     });
 

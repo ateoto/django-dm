@@ -83,6 +83,48 @@ class Encounter(models.Model):
         for npc in self.template.npcs.all():
             ep, created = NPCEncounterParticipant.objects.get_or_create(npc=npc, encounter=self)
 
+    def get_pc_participants(self):
+        response = {}
+
+        for ep in EncounterParticipant.objects.filter(encounter=self).select_subclasses():
+            if hasattr(ep, 'character'):
+                pc_response = {}
+                pc_response['id'] = ep.character.id
+                pc_response['name'] = ep.character.name
+                pc_response['hp'] = ep.character.hit_points
+                pc_response['max_hp'] = ep.character.max_hit_points
+                if ep.initiative == 0:
+                    pc_response['initiative'] = ep.character.get_abilities()['dex']['modifier_half_level']
+                else:
+                    pc_response['initiative'] = ep.initiative
+                pc_response['hp_percentage'] = ep.character.hp_percentage()
+
+                response[pc_response['id']] = pc_response
+
+        return response
+
+    def get_npc_participants(self):
+        response = {}
+
+        for ep in EncounterParticipant.objects.filter(encounter=self).select_subclasses():
+            if hasattr(ep, 'npc'):
+                npc = NPC.objects.get_subclass(id=ep.npc.id)
+                npc_response = {}
+                npc_response['id'] = npc.id
+                npc_response['name'] = npc.npc_type.name
+                npc_response['hp'] = npc.hit_points
+                npc_response['max_hp'] = npc.npc_type.max_hit_points
+                if ep.initiative == 0:
+                    npc_response['initiative'] = npc.get_abilities()['dex']['modifier_half_level']
+                else:
+                    npc_response['initiative'] = ep.initiative
+                npc_response['symbol'] = ep.symbol
+                npc_response['hp_percentage'] = npc.hp_percentage()
+
+                response[npc_response['id']] = npc_response
+
+        return response
+
 
 class EncounterParticipant(models.Model):
     encounter = models.ForeignKey(Encounter)

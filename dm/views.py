@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from dm.models import Party, Encounter
+from dm.models import Party, Encounter, EncounterParticipant, NPC, NPCType
 from dm.forms import NPCTypeForm, NPCStatsForm
 
 
@@ -21,13 +21,29 @@ def encounter(request, encounter_id):
     response_dict['encounter'] = encounter
     response_dict['party'] = encounter.party
 
+    # TODO: This is not done.
+    # I want to grab all the data before the page is loaded to avoid all this AJAX nonsense.
+
+    participants = EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
+
+    response_dict['pcs'] = []
+    response_dict['npcs'] = []
+
+    for participant in participants:
+        if hasattr(participant, 'character'):
+            response_dict['pcs'].append(participant)
+        if hasattr(participant, 'npc'):
+            response_dict['npcs'].append(participant)
+
+    EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
+
     return render_to_response('dm/encounter.html',
             response_dict,
             context_instance=RequestContext(request))
 
 
 @login_required
-def encounter_wm(request, encounter_id):
+def encounter_test(request, encounter_id):
     if not request.user.is_superuser:
         raise PermissionDenied
 
@@ -36,7 +52,24 @@ def encounter_wm(request, encounter_id):
     response_dict['encounter'] = encounter
     response_dict['party'] = encounter.party
 
-    return render_to_response('dm/encounter_widemouth.html',
+    # TODO: This is not done.
+    # I want to grab all the data before the page is loaded to avoid all this AJAX nonsense.
+
+    participants = EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
+
+    response_dict['pcs'] = []
+    response_dict['npcs'] = []
+
+    for participant in participants:
+        if hasattr(participant, 'character'):
+            response_dict['pcs'].append(participant)
+        if hasattr(participant, 'npc'):
+            npc = NPC.objects.get_subclass(id=participant.npc.id)
+            response_dict['npcs'].append({'name': npc.npc_type.name })
+
+    EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
+
+    return render_to_response('dm/encounter_test.html',
             response_dict,
             context_instance=RequestContext(request))
 

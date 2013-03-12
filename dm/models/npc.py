@@ -202,6 +202,13 @@ class NPC(models.Model):
 
         return response
 
+    def hp_percentage(self):
+        npc = NPC.objects.get_subclass(id=self.id)
+        if hasattr(npc, 'npc_type'):
+            return "%i%%" % (int(float(self.hit_points) / float(self.npc_type.max_hit_points) * 100))
+        else:
+            return "100%"
+
 
 class MonsterNPC(NPC):
     npc_type = models.ForeignKey(NPCType)
