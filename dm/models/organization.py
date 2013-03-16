@@ -90,6 +90,7 @@ class Encounter(models.Model):
             if hasattr(ep, 'character'):
                 pc_response = {}
                 pc_response['id'] = ep.character.id
+                pc_response['ep_id'] = ep.id
                 pc_response['name'] = ep.character.name
                 pc_response['hp'] = ep.character.hit_points
                 pc_response['max_hp'] = ep.character.max_hit_points
@@ -111,6 +112,7 @@ class Encounter(models.Model):
                 npc = NPC.objects.get_subclass(id=ep.npc.id)
                 npc_response = {}
                 npc_response['id'] = npc.id
+                npc_response['ep_id'] = ep.id
                 npc_response['name'] = npc.npc_type.name
                 npc_response['hp'] = npc.hit_points
                 npc_response['max_hp'] = npc.npc_type.max_hit_points
@@ -130,6 +132,7 @@ class EncounterParticipant(models.Model):
     encounter = models.ForeignKey(Encounter)
     initiative = models.IntegerField(default=0)
     symbol = models.CharField(max_length=3, blank=True)
+    #notes = models.TextField(blank=True)
     objects = InheritanceManager()
 
     class Meta:

@@ -6,6 +6,28 @@ function Encounter(resource_uri) {
 	};
 }
 
+Encounter.prototype.get_encounter_data = function() {
+	var that = this;
+	var jqxhr = $.get(that.resource_uri, '',
+		function(data, textStatus, jqXHR) {
+			that.setup = data.setup;
+			that.tactics = data.tactics;
+			that.pcs = data.pcs;
+			that.npcs = data.npcs;
+			that.notes = data.notes;
+			_.each(that.pcs, function(pc) {
+				var character = new Character('/DnD/api/v1/character/' + pc.id + '/');
+				character.get_character();
+				pc.character = character;
+			});
+			_.each(that.npcs, function(npc) {
+				var npci = new NPC('/dm/api/v1/npc/' + npc.id + '/');
+				npci.get_npc();
+				npc.npc = npci;
+			});
+	}, "json");
+}
+
 Encounter.prototype.get_encounter = function() {
 	console.log('Updating Encounter Data.');
 	var this_encounter = this;

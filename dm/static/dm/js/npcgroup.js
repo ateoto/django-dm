@@ -15,13 +15,6 @@ NPCGroup.prototype.get_npcgroup = function() {
 	});
 }
 
-NPCGroup.prototype.update_ui = function() {
-	console.log('Updating all NPC UI');
-	_.each(this.npcs, function(element) {
-		element.update_ui();
-	});
-}
-
 NPCGroup.prototype.get_npc_by_id = function(npc_id) {
 	var npc_id = npc_id;
 	var npc;

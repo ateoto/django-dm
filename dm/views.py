@@ -49,25 +49,11 @@ def encounter_test(request, encounter_id):
 
     response_dict = {}
     encounter = get_object_or_404(Encounter, id=encounter_id)
+    
     response_dict['encounter'] = encounter
     response_dict['party'] = encounter.party
-
-    # TODO: This is not done.
-    # I want to grab all the data before the page is loaded to avoid all this AJAX nonsense.
-
-    participants = EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
-
-    response_dict['pcs'] = []
-    response_dict['npcs'] = []
-
-    for participant in participants:
-        if hasattr(participant, 'character'):
-            response_dict['pcs'].append(participant)
-        if hasattr(participant, 'npc'):
-            npc = NPC.objects.get_subclass(id=participant.npc.id)
-            response_dict['npcs'].append({'name': npc.npc_type.name })
-
-    EncounterParticipant.objects.filter(encounter=encounter).select_subclasses()
+    response_dict['pcs'] = encounter.get_pc_participants()
+    response_dict['npcs'] = encounter.get_npc_participants()
 
     return render_to_response('dm/encounter_test.html',
             response_dict,
