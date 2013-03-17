@@ -107,15 +107,56 @@
                 </div>
             </div> <!-- overview -->
             <div id="pc-detail" class="row-fluid">
-                <div id="pc-detail-stats" class="span4">
-
-                </div>
-                <div id="pc-detail-dm">
-
+                <div id="pc-detail-stats" class="span4"></div>
+                <div id="pc-detail-dm" class="span2">
+                    <div class="page-header">
+                        <h3>PC DM Actions</h3>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="pc-detail-damage" type="text" placeholder="Damage">
+                        <button id="pc-detail-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="pc-detail-heal" type="text" placeholder="Heal">
+                        <button id="pc-detail-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="pc-detail-init" type="text" placeholder="Initiative">
+                        <button class="btn" id="pc-detail-init-btn" type="button" tabindex="-1">Set Initiative</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="pc-detail-xp" type="text" placeholder="XP">
+                        <button class="btn" id="pc-detail-xp-btn" type="button" tabindex="-1">Give XP</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4" id="pc-detail-money" type="text" placeholder="Copper">
+                        <button class="btn" id="pc-detail-money-btn" type="button" tabindex="-1">Give Money</button>
+                    </div>
                 </div>
             </div> <!-- pc-detail -->
             <div id="npc-detail" class="row-fluid">
-            
+                <div id="npc-detail-stats" class="span4"></div>
+                <div id="npc-detail-dm" class="span2">
+                    <div class="page-header">
+                        <h3>NPC DM Actions</h3>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="npc-detail-damage" type="text" placeholder="Damage">
+                        <button id="npc-detail-damage-btn" class="btn" type="button" tabindex="-1">Damage</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="npc-detail-heal" type="text" placeholder="Heal">
+                        <button id="npc-detail-heal-btn" class="btn" type="button" tabindex="-1">Heal</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="npc-detail-symbol" type="text" placeholder="Symbol">
+                        <button class="btn" id="npc-detail-symbol-btn" type="button" tabindex="-1">Set Symbol</button>
+                    </div>
+                    <div class="input-append">
+                        <input class="span4 dm-action" id="npc-detail-init" type="text" placeholder="Initiative">
+                        <button class="btn" id="npc-detail-init-btn" type="button" tabindex="-1">Set Initiative</button>
+                    </div>
+                </div>
             </div> <!-- npc-detail -->
 
         </div> <!-- encounter-content -->
@@ -123,10 +164,59 @@
 </div> <!-- content -->
 {% csrf_token %}
 {% verbatim %}
+<script id="pc-overview-row-template" type="text/x-handlebars-template">
+    <td id="pc-init-{{ id }}">{{ initiative }}</td>
+    <td id="pc-name-{{ id }}">{{ name }}</td>
+    <td id="pc-health-{{ id }}">
+        <span id="hp-text-{{ id }}">{{ hp }}</span> /
+        <span id="max-hp-text-{{ id }}">{{ max_hp }}</span>
+    </td>
+</script>
+
 <script id="pc-detail-template" type="text/x-handlebars-template">
     <div class="page-header">
         <h3>{{ name }} <small>Level <span id="level-text">{{ character.level }}</span> {{ character.race }} {{ character.class_type }}</small></h3>
     </div>
+    <dl class="dl-horizontal">
+        <dt>HP</dt>
+        <dd>{{ hp }} / {{ max_hp }}</dd>
+        <dt>AC</dt>
+        <dd>{{ character.defenses.ac.total }}</dd>
+        <dt>Fortitude</dt>
+        <dd>{{ character.defenses.fort.total }}</dd>
+        <dt>Reflex</dt>
+        <dd>{{ character.defenses.ref.total }}</dd>
+        <dt>Willpower</dt>
+        <dd>{{ character.defenses.will.total }}</dd>
+    </dl>
+</script>
+
+<script id="npc-overview-row-template" type="text/x-handlebars-template">
+    <td id="npc-init-{{ id }}">{{ initiative }}</td>
+    <td id="npc-symbol-{{ id }}">{{ symbol }}</td>
+    <td id="npc-name-{{ id }}">{{ name }}</td>
+    <td id="npc-health-{{ id }}">
+        <span id="hp-text-{{ id }}">{{ hp }}</span> /
+        <span id="max-hp-text-{{ id }}">{{ max_hp }}</span>
+    </td>
+</script>
+
+<script id="npc-detail-template" type="text/x-handlebars-template">
+    <div class="page-header">
+        <h3>{{ name }} <small>Level <span id="level-text">{{ npc.level }}</span> {{ npc.role }}</small></h3>
+    </div>
+    <dl class="dl-horizontal">
+        <dt>HP</dt>
+        <dd>{{ hp }} / {{ max_hp }}</dd>
+        <dt>AC</dt>
+        <dd>{{ npc.defenses.ac.total }}</dd>
+        <dt>Fortitude</dt>
+        <dd>{{ npc.defenses.fort.total }}</dd>
+        <dt>Reflex</dt>
+        <dd>{{ npc.defenses.ref.total }}</dd>
+        <dt>Willpower</dt>
+        <dd>{{ npc.defenses.will.total }}</dd>
+    </dl>
 </script>
 {% endverbatim %}
 {% endblock %}
