@@ -1,0 +1,13 @@
+{% extends "dm/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h3>Party</h3>
+{% for character in campaign.party.characters.all %}
+    <a href="{{ character.get_absolute_url }}">{{ character }}</a><br>
+{% endfor %}
+<h3>Encounters</h3>
+{% for encounter in encounters %}
+<a href="{{ encounter.get_absolute_url }}">{{ encounter.template.name }}</a><br>
+{% endfor %}
+{% endblock %}

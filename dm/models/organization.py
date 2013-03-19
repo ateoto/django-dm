@@ -19,6 +19,11 @@ class Party(models.Model):
     def __unicode__(self):
         return "%s (est. %s)" % (self.name, self.formed_on)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('dm-party', (), {
+            'party_id': self.id})
+
 
 class Campaign(models.Model):
     title = models.CharField(max_length=100)
@@ -30,6 +35,11 @@ class Campaign(models.Model):
 
     def __unicode__(self):
         return "%s: %s" % (self.party.name, self.title)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('dm-campaign', (), {
+            'campaign_id': self.id})
 
 
 class Session(models.Model):
@@ -63,9 +73,14 @@ class EncounterTemplate(models.Model):
         return self.name
 
 
+class EncounterMapImage(models.Model):
+    encounter_template = models.ForeignKey(EncounterTemplate, related_name='map_images')
+    image = models.ImageField(upload_to='EncounterMaps')
+
+
 class Encounter(models.Model):
     template = models.ForeignKey(EncounterTemplate)
-    party = models.ForeignKey(Party)
+    campaign = models.ForeignKey(Campaign)
     is_completed = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
 
@@ -73,15 +88,20 @@ class Encounter(models.Model):
         app_label = 'dm'
 
     def __unicode__(self):
-        return "%s instance for %s" % (self.template.name, self.party.name)
+        return "%s instance for %s" % (self.template.name, self.campaign.party.name)
 
     def save(self, *args, **kwargs):
         super(Encounter, self).save(*args, **kwargs)
-        for pc in self.party.characters.all():
+        for pc in self.campaign.party.characters.all():
             ep, created = PCEncounterParticipant.objects.get_or_create(character=pc, encounter=self)
 
         for npc in self.template.npcs.all():
             ep, created = NPCEncounterParticipant.objects.get_or_create(npc=npc, encounter=self)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('dm-encounter', (), {
+            'encounter_id': self.id})
 
     def get_pc_participants(self):
         response = {}
@@ -132,7 +152,7 @@ class EncounterParticipant(models.Model):
     encounter = models.ForeignKey(Encounter)
     initiative = models.IntegerField(default=0)
     symbol = models.CharField(max_length=3, blank=True)
-    #notes = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
     objects = InheritanceManager()
 
     class Meta:

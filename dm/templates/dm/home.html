@@ -1,0 +1,8 @@
+{% extends "dm/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+{% for campaign in campaigns %}
+<a href="{{ campaign.get_absolute_url }}"> {{ campaign.title }}</a><br>
+{% endfor %}
+{% endblock %}

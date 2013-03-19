@@ -164,6 +164,17 @@ class NPC(models.Model):
     def __unicode__(self):
         return NPC.objects.get_subclass(id=self.id).__unicode__()
 
+    def save(self, *args, **kwargs):
+        if self.id:
+            npc = NPC.objects.get_subclass(id=self.id)
+            if hasattr(npc, 'hit_points'):
+                if self.hit_points <= 0:
+                    self.is_alive = False
+                else:
+                    self.is_alive = True
+
+        super(NPC, self).save(*args, **kwargs)
+
     def get_abilities(self):
         response = {}
         npc = NPC.objects.get_subclass(id=self.id)

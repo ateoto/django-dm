@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from dm.models import NPCType
+from dm.models import NPCType, NPCTypePower
 
 from crispy_forms.helper import FormHelper
 
@@ -14,6 +14,16 @@ class NPCTypeForm(ModelForm):
 
     class Meta:
         model = NPCType
+
+
+class NPCTypePowerForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(NPCTypePowerForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+
+    class Meta:
+        model = NPCTypePower
 
 
 class NPCStatsForm(forms.Form):

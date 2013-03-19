@@ -15,6 +15,7 @@ NPC.prototype.get_npc = function() {
             that.powers = data.powers;
             that.level = data.level;
             that.speed = data.speed;
+            that.is_alive = data.is_alive;
             that.perception = data.perception;
             that.xp_reward = data.xp_reward;
     }, "json");
@@ -31,6 +32,13 @@ NPC.prototype.set_npc = function() {
         processData: false,
         beforeSend: function(jqXHR, settings) {
             jqXHR.setRequestHeader('X-CSRFToken', $('input[name=csrfmiddlewaretoken]').val());
+        },
+        success: function(data, status, jqXHR) {
+            if (that.hit_points > 0) {
+                that.is_alive = true;
+            } else {
+                that.is_alive = false;
+            }
         }
     });
 }

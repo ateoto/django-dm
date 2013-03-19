@@ -61,7 +61,6 @@ Encounter.prototype.save_pc = function(pcid) {
 }
 
 Encounter.prototype.damage_npc = function(npcid, damage) {
-    console.log(npcid);
     this.npcs[npcid].hp = this.npcs[npcid].hp - damage;
     this.npcs[npcid].npc.hit_points = this.npcs[npcid].hp;
     this.npcs[npcid].npc.set_npc();
