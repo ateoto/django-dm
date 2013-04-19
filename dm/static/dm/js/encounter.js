@@ -45,6 +45,11 @@ Encounter.prototype.set_init_pc = function(pcid, init) {
     this.save_pc(pcid);
 }
 
+Encounter.prototype.give_xp_pc = function(pcid, xp) {
+    this.pcs[pcid].character.xp = this.pcs[pcid].character.xp + xp;
+    this.pcs[pcid].character.set_character();
+}
+
 Encounter.prototype.save_pc = function(pcid) {
     var that = this;
     $.ajax({

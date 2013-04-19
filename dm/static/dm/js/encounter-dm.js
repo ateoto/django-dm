@@ -96,7 +96,13 @@ $(function() {
     });
 
     $('#pc-detail-xp-btn').click(function() {
-        var pcid = $('#pc-detail').attr('pc-id');
+        var xp = $('#pc-detail-xp').val();
+        if ($.isNumeric(xp)) {
+            xp = parseInt(xp, 10);
+            var pcid = $('#pc-detail').attr('pc-id');
+            encounter.give_xp_pc(pcid, xp);
+        }
+        $('#pc-detail-xp').val('');
     });
 
     $('#pc-detail-money-btn').click(function() {

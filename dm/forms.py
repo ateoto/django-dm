@@ -24,8 +24,9 @@ class NPCTypePowerForm(ModelForm):
 
     class Meta:
         model = NPCTypePower
+        fiels = ('name', 'attack_type', 'action_type', 'keywords', 'recharge_text', 'usage', 'description')
 
-
+        
 class NPCStatsForm(forms.Form):
     ac = forms.IntegerField(label="Armor Class")
     fort = forms.IntegerField(label="Fortitude")

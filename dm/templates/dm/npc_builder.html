@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block js %}
 {{ block.super }}
+<script src="{% static "dm/js/npc-builder.js" %}"></script>
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -13,15 +14,24 @@
             </div>
             <form class="form-horizontal" method="post">
                 <div class="row">
-                    <div class="span6">
+                    <div id="npc" class="span6">
                         {% crispy npc_form %}
+                        <button type="button" class="btn btn-primary" id="npc-next-btn">Next</button>
                     </div>
-                    <div class="span6">
+                    <div id="npc-stats" class="span6">
                         {% crispy npc_stats_form %}
+                        <button type="button" class="btn btn-primary" id="npc-stats-next-btn">Next</button>
+                    </div>
+                    <div id="npc-powers" class="span6">
+                        {% crispy npc_power_form %}
+                        <button type="button" class="btn btn-primary" id="npc-powers-next-btn">Add</button>
+                        <button type="button" class="btn btn-primary" id="npc-done-btn">Finished</button>
+                    </div>
+                    <div id="npc-view" class="span6">
+                        <p>This is where the NPC shows up.</p>
                     </div>
                 </div>
-            <input type="submit" name="save" value="Save" class="btn btn-primary" id="submit-id-save">
-        </form>
+            </form>
         </div>
     </div>
 </div>

@@ -7,8 +7,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from dm.models import Campaign, Party, Encounter
-from dm.forms import NPCTypeForm, NPCStatsForm
+from character_builder.models import Ability, Defense
+from dm.models import Campaign, Party, Encounter, NPCType, NPCTypeAbility, NPCTypeDefense
+from dm.forms import NPCTypeForm, NPCStatsForm, NPCTypePowerForm
 
 
 @login_required
@@ -85,15 +86,43 @@ def npc_builder(request):
     if request.method == "POST":
         npc_form = NPCTypeForm(request.POST)
         npc_stats_form = NPCStatsForm(request.POST)
+        npc_power_form = NPCTypePowerForm(request.POST)
         if npc_form.is_valid() and npc_stats_form.is_valid():
-            return HttpResponse('Cool.')
+            npc = NPCType()
+            npc.name = npc_form.cleaned_data['name']
+            npc.race = npc_form.cleaned_data['race']
+            npc.level = npc_form.cleaned_data['level']
+            npc.vision = npc_form.cleaned_data['vision']
+            npc.xp_reward = npc_form.cleaned_data['xp_reward']
+            npc.max_hit_points = npc_form.cleaned_data['max_hit_points']
+            npc.alignment = npc_form.cleaned_data['alignment']
+            npc.save()
+            for role in npc_form.cleaned_data['roles']:
+                npc.roles.add(role)
+
+            for defense in Defense.objects.all():
+                value = npc_stats_form.cleaned_data[defense.abbreviation.lower()]
+                npcd, created = NPCTypeDefense.objects.get_or_create(npc_type=npc,
+                                                                    defense=defense,
+                                                                    defaults={'value': value})
+                npcd.value = value
+                npcd.save()
+
+            for ability in Ability.objects.all():
+                value = npc_stats_form.cleaned_data[ability.name.lower()]
+                npca, created = NPCTypeAbility.objects.get_or_create(npc_type=npc,
+                                                                    ability=ability,
+                                                                    defaults={'value': value})
+                npca.value = value
+                npca.save()
 
     response_dict = {}
     response_dict['npc_form'] = NPCTypeForm()
     response_dict['npc_stats_form'] = NPCStatsForm()
+    response_dict['npc_power_form'] = NPCTypePowerForm()
 
     return render_to_response(
-        'dm/npc_builder.html',
+        'dm/npc_builder_powers.html',
         response_dict,
         context_instance=RequestContext(request)
     )
